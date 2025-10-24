@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>민호특공대 라디오 선곡표표</title>
+    <title>라디오 선곡 관리 시스템</title>
     <style>
         * {
             margin: 0;
@@ -18,7 +18,10 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-            background: linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%);
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(94, 234, 212, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(45, 212, 191, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%);
             min-height: 100vh;
             padding: 15px;
         }
@@ -30,24 +33,54 @@
 
         /* 상단 배너 */
         .banner-section {
-            background: white;
+            background: linear-gradient(135deg, #5eead4 0%, #2dd4bf 50%, #14b8a6 100%);
             border-radius: 20px;
-            padding: 15px;
+            padding: 35px 20px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(6, 214, 160, 0.15);
+            box-shadow: 0 8px 30px rgba(20, 184, 166, 0.3);
             position: relative;
-            border: 2px solid #ccfbf1;
+            border: 3px solid white;
+            text-align: center;
+            overflow: hidden;
         }
 
-        .banner-image {
-            width: 100%;
-            max-width: 700px;
-            height: auto;
-            max-height: 150px;
-            object-fit: cover;
-            border-radius: 12px;
-            display: block;
-            margin: 0 auto;
+        .banner-section::before {
+            content: '⭐';
+            position: absolute;
+            font-size: 100px;
+            opacity: 0.1;
+            top: -20px;
+            left: 20px;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        .banner-section::after {
+            content: '✨';
+            position: absolute;
+            font-size: 80px;
+            opacity: 0.15;
+            bottom: -10px;
+            right: 30px;
+            animation: twinkle 2.5s ease-in-out infinite;
+        }
+
+        .banner-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            animation: fadeIn 1s ease-in;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 768px) {
@@ -56,13 +89,22 @@
             }
 
             .banner-section {
-                padding: 10px;
+                padding: 25px 15px;
                 margin-bottom: 15px;
             }
 
-            .banner-image {
-                max-height: 100px;
-                border-radius: 8px;
+            .banner-section::before {
+                font-size: 60px;
+            }
+
+            .banner-section::after {
+                font-size: 50px;
+            }
+
+            .banner-title {
+                font-size: 1.2rem;
+                gap: 8px;
+                flex-wrap: wrap;
             }
         }
 
@@ -84,41 +126,56 @@
             z-index: 100;
         }
 
+        .admin-icon:hover {
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+        }
+
+        .admin-icon:active {
+            transform: scale(1.05);
+        }
+
+        .admin-icon.logged-in {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+        }
+
+        .admin-icon.logged-in:hover {
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
+        }
+
         /* 문자 사연 버튼 */
         .message-btn {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: linear-gradient(135deg, #5eead4 0%, #2dd4bf 100%);
-            color: #064e3b;
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
+            color: #14b8a6;
             padding: 16px 28px;
             border-radius: 50px;
             font-weight: bold;
             font-size: 16px;
-            box-shadow: 0 6px 20px rgba(94, 234, 212, 0.5);
+            box-shadow: 0 6px 20px rgba(20, 184, 166, 0.25);
             cursor: pointer;
             transition: all 0.3s;
             z-index: 100;
-            border: none;
+            border: 2px solid #14b8a6;
             display: flex;
             align-items: center;
             gap: 8px;
-            animation: pulse 2s ease-in-out infinite;
             text-decoration: none;
         }
 
         .message-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(94, 234, 212, 0.6);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(20, 184, 166, 0.35);
+            background: linear-gradient(135deg, #5eead4 0%, #2dd4bf 100%);
+            color: white;
+            border-color: #5eead4;
         }
 
         .message-btn:active {
-            transform: translateY(-1px);
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            transform: translateY(-3px) scale(1.03);
         }
 
         @media (max-width: 768px) {
@@ -343,6 +400,12 @@
             padding: 20px;
             box-shadow: 0 4px 20px rgba(6, 214, 160, 0.1);
             border: 2px solid #ccfbf1;
+            transition: all 0.3s;
+        }
+
+        .calendar-section:hover, .playlist-section:hover {
+            box-shadow: 0 6px 30px rgba(20, 184, 166, 0.15);
+            border-color: #99f6e4;
         }
 
         @media (max-width: 768px) {
@@ -353,18 +416,6 @@
         }
 
         /* 달력 스타일 */
-        .calendar-title {
-            text-align: center;
-            margin-bottom: 15px;
-            color: #14b8a6;
-            font-size: 1.1rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
         .year-nav, .month-nav {
             display: flex;
             justify-content: space-between;
@@ -379,16 +430,22 @@
             background: #f0fdfa;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
             transition: background 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #14b8a6;
+            font-weight: bold;
         }
 
         .nav-btn:hover {
             background: #ccfbf1;
+            transform: scale(1.1);
+        }
+
+        .nav-btn:active {
+            transform: scale(0.95);
         }
 
         .year-nav .current-year {
@@ -485,12 +542,14 @@
         .calendar-day.selected {
             background: linear-gradient(135deg, #14b8a6 0%, #10b981 100%);
             color: white;
-            transform: scale(1.08);
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
+            transform: scale(1.12);
+            box-shadow: 0 6px 20px rgba(20, 184, 166, 0.5);
+            font-weight: bold;
         }
 
         .calendar-day.has-playlist {
             border: 2px solid #5eead4;
+            font-weight: bold;
         }
 
         .calendar-day.has-playlist::after {
@@ -525,7 +584,10 @@
         .playlist-header {
             font-size: 1.6rem;
             font-weight: bold;
-            color: #0f766e;
+            background: linear-gradient(135deg, #14b8a6 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 25px;
             display: flex;
             align-items: center;
@@ -536,6 +598,7 @@
             content: '⭐';
             font-size: 1.8rem;
             animation: twinkle 1.5s ease-in-out infinite;
+            -webkit-text-fill-color: initial;
         }
 
         @keyframes twinkle {
@@ -707,6 +770,19 @@
             animation: twinkle 2s ease-in-out infinite;
         }
 
+        .song-item::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #5eead4 0%, #14b8a6 100%);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+            transform-origin: bottom;
+        }
+
         @media (max-width: 768px) {
             .song-item {
                 padding: 15px;
@@ -716,9 +792,14 @@
         }
 
         .song-item:hover {
-            box-shadow: 0 6px 20px rgba(20, 184, 166, 0.15);
-            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(20, 184, 166, 0.2);
+            transform: translateY(-5px) scale(1.01);
             border-color: #5eead4;
+        }
+
+        .song-item:hover::after {
+            transform: scaleY(1);
+            transform-origin: top;
         }
 
         .song-info {
@@ -743,6 +824,13 @@
             font-size: 12px;
             font-weight: bold;
             white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(94, 234, 212, 0.3);
+            transition: all 0.3s;
+        }
+
+        .song-item:hover .station-tag {
+            transform: scale(1.05);
+            box-shadow: 0 3px 12px rgba(94, 234, 212, 0.5);
         }
 
         @media (max-width: 768px) {
@@ -771,6 +859,11 @@
             margin-bottom: 5px;
             line-height: 1.4;
             word-break: keep-all;
+            transition: color 0.3s;
+        }
+
+        .song-item:hover .song-title {
+            color: #14b8a6;
         }
 
         @media (max-width: 768px) {
@@ -813,13 +906,14 @@
         }
 
         .delete-btn:hover {
-            background: #dc2626;
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
             color: white;
-            transform: scale(1.1);
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
 
         .delete-btn:active {
-            transform: scale(0.95);
+            transform: scale(1.05) rotate(5deg);
         }
 
         .empty-state {
@@ -955,28 +1049,24 @@
     <div class="container">
         <!-- 배너 -->
         <div class="banner-section">
-            <!-- 이미지 경로 수정 방법: src="preview1.jpg" 처럼 HTML 파일과 같은 폴더에 이미지를 넣거나, 
-                 온라인 이미지 URL을 사용하세요 (예: src="https://...") -->
-            <img src="preview1.jpg" alt="라디오 선곡 배너" class="banner-image" onerror="this.style.display='none'">
+            <div class="banner-title">
+                💫 민호특공대가 함께 만든 라디오 선곡표
+            </div>
         </div>
 
         <div class="grid">
             <!-- 달력 -->
             <div class="calendar-section">
-                <div class="calendar-title">
-                    ⭐ 선곡 달력
-                </div>
-
                 <div class="year-nav">
-                    <button class="nav-btn" onclick="changeYear(-1)">◀</button>
+                    <button class="nav-btn" onclick="changeYear(-1)">◁</button>
                     <span class="current-year" id="currentYear"></span>
-                    <button class="nav-btn" onclick="changeYear(1)">▶</button>
+                    <button class="nav-btn" onclick="changeYear(1)">▷</button>
                 </div>
 
                 <div class="month-nav">
-                    <button class="nav-btn" onclick="changeMonth(-1)">◀</button>
+                    <button class="nav-btn" onclick="changeMonth(-1)">◁</button>
                     <span class="current-month" id="currentMonth"></span>
-                    <button class="nav-btn" onclick="changeMonth(1)">▶</button>
+                    <button class="nav-btn" onclick="changeMonth(1)">▷</button>
                 </div>
 
                 <div class="weekdays">
@@ -1028,7 +1118,7 @@
 
     <script>
         // 관리자 비밀번호 (원하는 비밀번호로 변경하세요)
-        const ADMIN_PASSWORD = 'admin1234';
+        const ADMIN_PASSWORD = '@minho0728';
 
         // 상태
         let isAdmin = false;
