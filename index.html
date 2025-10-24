@@ -1257,7 +1257,7 @@
                         </div>
 
                         <div class="form-group region-group" id="regionGroup">
-                            <label>TBN 지역</label>
+                            <label>tbn 지역</label>
                             <select id="regionSelect">
                                 <option value="">지역 선택</option>
                                 <option value="부산">부산</option>
@@ -1508,7 +1508,7 @@
         function checkTbnRegion() {
             const station = document.getElementById('stationSelect').value;
             const regionGroup = document.getElementById('regionGroup');
-            if (station === 'TBN') {
+            if (station === 'tbn') {
                 regionGroup.classList.add('show');
             } else {
                 regionGroup.classList.remove('show');
@@ -1531,14 +1531,14 @@
                 alert('방송사, 프로그램, 곡명을 입력해주세요!'); 
                 return; 
             }
-            if (station === 'TBN' && !region) { 
-                alert('TBN 지역을 선택해주세요!'); 
+            if (station === 'tbn' && !region) { 
+                alert('tbn 지역을 선택해주세요!'); 
                 return; 
             }
             
             const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
             let finalProgram = program;
-            if (station === 'TBN' && region) finalProgram = `${program}(${region})`;
+            if (station === 'tbn' && region) finalProgram = `${program}(${region})`;
             
             const newSong = { 
                 id: Date.now().toString(), 
@@ -1580,7 +1580,7 @@
                 
                 setTimeout(() => {
                     const programMatch = song.program.match(/^(.+?)\((.+)\)$/);
-                    if (programMatch && song.station === 'TBN') {
+                    if (programMatch && song.station === 'tbn') {
                         document.getElementById('programInput').value = programMatch[1];
                         checkTbnRegion();
                         setTimeout(() => { document.getElementById('regionSelect').value = programMatch[2]; }, 50);
@@ -1632,4 +1632,3 @@
     </script>
 </body>
 </html>
-
