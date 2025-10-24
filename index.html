@@ -1005,7 +1005,7 @@
                 <h2 class="modal-title">✏️ 곡 정보 수정</h2>
                 <div class="form-group">
                     <label for="editProgramSelect">방송사 + 프로그램</label>
-                    <select id="editProgramSelect">
+                    <select id="editProgramSelect" onchange="toggleTbnRegion('editProgramSelect', 'editTbnRegionGroup')">
                         <option value="">프로그램을 선택하세요</option>
                         <optgroup label="KBS">
                             <option value="KBS|주현미의 러브레터">주현미의 러브레터</option>
@@ -1028,7 +1028,26 @@
                             <option value="tbn|오후의 발견">오후의 발견</option>
                             <option value="tbn|두시의 트롯팡팡">두시의 트롯팡팡</option>
                             <option value="tbn|트로트 하이웨이">트로트 하이웨이</option>
+                            <option value="tbn|달리는 라디오">달리는 라디오</option>
                         </optgroup>
+                    </select>
+                </div>
+                <div class="form-group" id="editTbnRegionGroup" style="display: none;">
+                    <label for="editTbnRegionSelect">tbn 지역</label>
+                    <select id="editTbnRegionSelect">
+                        <option value="">지역 선택</option>
+                        <option value="부산">부산</option>
+                        <option value="광주">광주</option>
+                        <option value="대구">대구</option>
+                        <option value="대전">대전</option>
+                        <option value="경인">경인</option>
+                        <option value="강원">강원</option>
+                        <option value="전북">전북</option>
+                        <option value="울산">울산</option>
+                        <option value="경남">경남</option>
+                        <option value="경북">경북</option>
+                        <option value="제주">제주</option>
+                        <option value="충북">충북</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -1115,7 +1134,7 @@
                         </div>
                         <div class="input-group">
                             <label for="programSelect">방송사 + 프로그램</label>
-                            <select id="programSelect">
+                            <select id="programSelect" onchange="toggleTbnRegion('programSelect', 'tbnRegionGroup')">
                                 <option value="">프로그램을 선택하세요</option>
                                 <optgroup label="KBS">
                                     <option value="KBS|주현미의 러브레터">주현미의 러브레터</option>
@@ -1138,7 +1157,26 @@
                                     <option value="tbn|오후의 발견">오후의 발견</option>
                                     <option value="tbn|두시의 트롯팡팡">두시의 트롯팡팡</option>
                                     <option value="tbn|트로트 하이웨이">트로트 하이웨이</option>
+                                    <option value="tbn|달리는 라디오">달리는 라디오</option>
                                 </optgroup>
+                            </select>
+                        </div>
+                        <div class="input-group" id="tbnRegionGroup" style="display: none;">
+                            <label for="tbnRegionSelect">tbn 지역</label>
+                            <select id="tbnRegionSelect">
+                                <option value="">지역 선택</option>
+                                <option value="부산">부산</option>
+                                <option value="광주">광주</option>
+                                <option value="대구">대구</option>
+                                <option value="대전">대전</option>
+                                <option value="경인">경인</option>
+                                <option value="강원">강원</option>
+                                <option value="전북">전북</option>
+                                <option value="울산">울산</option>
+                                <option value="경남">경남</option>
+                                <option value="경북">경북</option>
+                                <option value="제주">제주</option>
+                                <option value="충북">충북</option>
                             </select>
                         </div>
                         <div class="input-group">
@@ -1184,7 +1222,24 @@
             { station: 'tbn', program: '주말, 열두시에 만나요' },
             { station: 'tbn', program: '오후의 발견' },
             { station: 'tbn', program: '두시의 트롯팡팡' },
-            { station: 'tbn', program: '트로트 하이웨이' }
+            { station: 'tbn', program: '트로트 하이웨이' },
+            { station: 'tbn', program: '달리는 라디오' }
+        ];
+
+        // tbn 지역 목록
+        const tbnRegions = [
+            '부산',
+            '광주',
+            '대구',
+            '대전',
+            '경인',
+            '강원',
+            '전북',
+            '울산',
+            '경남',
+            '경북',
+            '제주',
+            '충북'
         ];
 
         // 로컬 스토리지에서 데이터 불러오기
@@ -1198,6 +1253,19 @@
         // 로컬 스토리지에 저장
         function saveToLocalStorage() {
             localStorage.setItem('radioPlaylists', JSON.stringify(playlists));
+        }
+
+        // tbn 지역 선택 필드 표시/숨김
+        function toggleTbnRegion(programSelectId, regionGroupId) {
+            const programSelect = document.getElementById(programSelectId);
+            const regionGroup = document.getElementById(regionGroupId);
+            const selectedValue = programSelect.value;
+
+            if (selectedValue && selectedValue.startsWith('tbn|')) {
+                regionGroup.style.display = 'block';
+            } else {
+                regionGroup.style.display = 'none';
+            }
         }
 
         // 페이지 로드 시 초기화
@@ -1232,6 +1300,8 @@
         function closeModal() {
             document.getElementById('modalOverlay').classList.remove('active');
             document.getElementById('errorMessage').textContent = '';
+            document.getElementById('editTbnRegionGroup').style.display = 'none';
+            document.getElementById('editTbnRegionSelect').value = '';
         }
 
         function closeModalOnOutsideClick(event) {
@@ -1444,7 +1514,18 @@
             }
 
             // "방송사|프로그램명" 형태를 분리
-            const [station, program] = programValue.split('|');
+            const [station, programName] = programValue.split('|');
+
+            // tbn인 경우 지역 정보 추가
+            let finalProgram = programName;
+            if (station === 'tbn') {
+                const region = document.getElementById('tbnRegionSelect').value;
+                if (!region) {
+                    alert('tbn 지역을 선택해주세요.');
+                    return;
+                }
+                finalProgram = `${programName}(${region})`;
+            }
 
             const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
             
@@ -1455,7 +1536,7 @@
             const song = {
                 id: Date.now().toString(),
                 station,
-                program,
+                program: finalProgram,
                 title,
                 artist,
                 isNew
@@ -1466,6 +1547,8 @@
 
             // 입력 필드 초기화
             document.getElementById('programSelect').value = '';
+            document.getElementById('tbnRegionSelect').value = '';
+            document.getElementById('tbnRegionGroup').style.display = 'none';
             document.getElementById('titleInput').value = '';
             document.getElementById('artistInput').value = '';
             document.getElementById('isNewInput').checked = false;
@@ -1486,9 +1569,29 @@
 
             if (!song) return;
 
+            // tbn인 경우 프로그램명에서 지역 정보 분리
+            let programName = song.program;
+            let region = '';
+            
+            if (song.station === 'tbn' && song.program.includes('(') && song.program.includes(')')) {
+                const match = song.program.match(/^(.+?)\((.+?)\)$/);
+                if (match) {
+                    programName = match[1];
+                    region = match[2];
+                }
+            }
+
             // 수정 폼에 기존 데이터 채우기
-            const programValue = `${song.station}|${song.program}`;
+            const programValue = `${song.station}|${programName}`;
             document.getElementById('editProgramSelect').value = programValue;
+            
+            // tbn인 경우 지역 선택 필드 표시 및 값 설정
+            if (song.station === 'tbn') {
+                document.getElementById('editTbnRegionGroup').style.display = 'block';
+                document.getElementById('editTbnRegionSelect').value = region;
+            } else {
+                document.getElementById('editTbnRegionGroup').style.display = 'none';
+            }
             
             document.getElementById('editTitleInput').value = song.title;
             document.getElementById('editArtistInput').value = song.artist || '';
@@ -1524,7 +1627,18 @@
             }
 
             // "방송사|프로그램명" 형태를 분리
-            const [station, program] = programValue.split('|');
+            const [station, programName] = programValue.split('|');
+
+            // tbn인 경우 지역 정보 추가
+            let finalProgram = programName;
+            if (station === 'tbn') {
+                const region = document.getElementById('editTbnRegionSelect').value;
+                if (!region) {
+                    alert('tbn 지역을 선택해주세요.');
+                    return;
+                }
+                finalProgram = `${programName}(${region})`;
+            }
 
             const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
             const songIndex = playlists[dateKey].findIndex(s => s.id === editingSongId);
@@ -1533,7 +1647,7 @@
                 playlists[dateKey][songIndex] = {
                     ...playlists[dateKey][songIndex],
                     station,
-                    program,
+                    program: finalProgram,
                     title,
                     artist,
                     isNew
@@ -1585,4 +1699,3 @@
     </script>
 </body>
 </html>
-
