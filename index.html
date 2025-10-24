@@ -289,7 +289,39 @@
             transition: all 0.3s;
         }
 
-        .form-group input:focus {
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #99f6e4;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: white;
+            cursor: pointer;
+        }
+
+        .form-group select:disabled {
+            background: #f3f4f6;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .form-group select optgroup {
+            font-weight: bold;
+            color: #0f766e;
+            background: #f0fdfa;
+            font-size: 14px;
+            padding: 5px;
+        }
+
+        .form-group select option {
+            font-weight: normal;
+            color: #1f2937;
+            padding: 8px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
             outline: none;
             border-color: #14b8a6;
             box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
@@ -838,7 +870,39 @@
             transition: all 0.3s;
         }
 
-        .input-group input:focus {
+        .input-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #99f6e4;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: white;
+            cursor: pointer;
+        }
+
+        .input-group select:disabled {
+            background: #f3f4f6;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .input-group select optgroup {
+            font-weight: bold;
+            color: #0f766e;
+            background: #f0fdfa;
+            font-size: 13px;
+            padding: 5px;
+        }
+
+        .input-group select option {
+            font-weight: normal;
+            color: #1f2937;
+            padding: 8px;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
             outline: none;
             border-color: #14b8a6;
             box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
@@ -940,12 +1004,32 @@
             <div id="editForm" style="display: none;">
                 <h2 class="modal-title">✏️ 곡 정보 수정</h2>
                 <div class="form-group">
-                    <label for="editStationInput">방송사</label>
-                    <input type="text" id="editStationInput" placeholder="예: KBS">
-                </div>
-                <div class="form-group">
-                    <label for="editProgramInput">프로그램명</label>
-                    <input type="text" id="editProgramInput" placeholder="예: 박명수의 라디오쇼">
+                    <label for="editProgramSelect">방송사 + 프로그램</label>
+                    <select id="editProgramSelect">
+                        <option value="">프로그램을 선택하세요</option>
+                        <optgroup label="KBS">
+                            <option value="KBS|주현미의 러브레터">주현미의 러브레터</option>
+                            <option value="KBS|은가은의 빛나는 트로트">은가은의 빛나는 트로트</option>
+                        </optgroup>
+                        <optgroup label="MBC">
+                            <option value="MBC|손태진의 트로트 라디오">손태진의 트로트 라디오</option>
+                            <option value="MBC|박준형 박영진의 2시만세">박준형 박영진의 2시만세</option>
+                        </optgroup>
+                        <optgroup label="SBS">
+                            <option value="SBS|이숙영의 러브FM">이숙영의 러브FM</option>
+                        </optgroup>
+                        <optgroup label="tbn">
+                            <option value="tbn|김효진, 양상국의 12시에 만나요">김효진, 양상국의 12시에 만나요</option>
+                            <option value="tbn|TBN 차차차">TBN 차차차</option>
+                            <option value="tbn|펀펀트롯">펀펀트롯</option>
+                            <option value="tbn|홍지영의 주말엔12시">홍지영의 주말엔12시</option>
+                            <option value="tbn|주말의 친한친구">주말의 친한친구</option>
+                            <option value="tbn|주말, 열두시에 만나요">주말, 열두시에 만나요</option>
+                            <option value="tbn|오후의 발견">오후의 발견</option>
+                            <option value="tbn|두시의 트롯팡팡">두시의 트롯팡팡</option>
+                            <option value="tbn|트로트 하이웨이">트로트 하이웨이</option>
+                        </optgroup>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="editTitleInput">곡명</label>
@@ -1030,12 +1114,32 @@
                             ➕ 새 곡 추가
                         </div>
                         <div class="input-group">
-                            <label for="stationInput">방송사</label>
-                            <input type="text" id="stationInput" placeholder="예: KBS">
-                        </div>
-                        <div class="input-group">
-                            <label for="programInput">프로그램명</label>
-                            <input type="text" id="programInput" placeholder="예: 박명수의 라디오쇼">
+                            <label for="programSelect">방송사 + 프로그램</label>
+                            <select id="programSelect">
+                                <option value="">프로그램을 선택하세요</option>
+                                <optgroup label="KBS">
+                                    <option value="KBS|주현미의 러브레터">주현미의 러브레터</option>
+                                    <option value="KBS|은가은의 빛나는 트로트">은가은의 빛나는 트로트</option>
+                                </optgroup>
+                                <optgroup label="MBC">
+                                    <option value="MBC|손태진의 트로트 라디오">손태진의 트로트 라디오</option>
+                                    <option value="MBC|박준형 박영진의 2시만세">박준형 박영진의 2시만세</option>
+                                </optgroup>
+                                <optgroup label="SBS">
+                                    <option value="SBS|이숙영의 러브FM">이숙영의 러브FM</option>
+                                </optgroup>
+                                <optgroup label="tbn">
+                                    <option value="tbn|김효진, 양상국의 12시에 만나요">김효진, 양상국의 12시에 만나요</option>
+                                    <option value="tbn|TBN 차차차">TBN 차차차</option>
+                                    <option value="tbn|펀펀트롯">펀펀트롯</option>
+                                    <option value="tbn|홍지영의 주말엔12시">홍지영의 주말엔12시</option>
+                                    <option value="tbn|주말의 친한친구">주말의 친한친구</option>
+                                    <option value="tbn|주말, 열두시에 만나요">주말, 열두시에 만나요</option>
+                                    <option value="tbn|오후의 발견">오후의 발견</option>
+                                    <option value="tbn|두시의 트롯팡팡">두시의 트롯팡팡</option>
+                                    <option value="tbn|트로트 하이웨이">트로트 하이웨이</option>
+                                </optgroup>
+                            </select>
                         </div>
                         <div class="input-group">
                             <label for="titleInput">곡명</label>
@@ -1058,12 +1162,30 @@
 
     <script>
         // 전역 변수
-        const ADMIN_PASSWORD = '@minho0728';
+        const ADMIN_PASSWORD = 'ciel0207';
         let isAdmin = false;
         let currentDate = new Date();
         let selectedDate = null;
         let playlists = {};
         let editingSongId = null; // 수정 중인 곡 ID
+
+        // 방송사 + 프로그램 통합 데이터
+        const programs = [
+            { station: 'KBS', program: '주현미의 러브레터' },
+            { station: 'KBS', program: '은가은의 빛나는 트로트' },
+            { station: 'MBC', program: '손태진의 트로트 라디오' },
+            { station: 'MBC', program: '박준형 박영진의 2시만세' },
+            { station: 'SBS', program: '이숙영의 러브FM' },
+            { station: 'tbn', program: '김효진, 양상국의 12시에 만나요' },
+            { station: 'tbn', program: 'TBN 차차차' },
+            { station: 'tbn', program: '펀펀트롯' },
+            { station: 'tbn', program: '홍지영의 주말엔12시' },
+            { station: 'tbn', program: '주말의 친한친구' },
+            { station: 'tbn', program: '주말, 열두시에 만나요' },
+            { station: 'tbn', program: '오후의 발견' },
+            { station: 'tbn', program: '두시의 트롯팡팡' },
+            { station: 'tbn', program: '트로트 하이웨이' }
+        ];
 
         // 로컬 스토리지에서 데이터 불러오기
         function loadFromLocalStorage() {
@@ -1311,16 +1433,18 @@
                 return;
             }
 
-            const station = document.getElementById('stationInput').value.trim();
-            const program = document.getElementById('programInput').value.trim();
+            const programValue = document.getElementById('programSelect').value;
             const title = document.getElementById('titleInput').value.trim();
             const artist = document.getElementById('artistInput').value.trim();
             const isNew = document.getElementById('isNewInput').checked;
 
-            if (!station || !program || !title) {
-                alert('방송사, 프로그램명, 곡명을 입력해주세요.');
+            if (!programValue || !title) {
+                alert('프로그램과 곡명을 입력해주세요.');
                 return;
             }
+
+            // "방송사|프로그램명" 형태를 분리
+            const [station, program] = programValue.split('|');
 
             const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
             
@@ -1341,8 +1465,7 @@
             saveToLocalStorage();
 
             // 입력 필드 초기화
-            document.getElementById('stationInput').value = '';
-            document.getElementById('programInput').value = '';
+            document.getElementById('programSelect').value = '';
             document.getElementById('titleInput').value = '';
             document.getElementById('artistInput').value = '';
             document.getElementById('isNewInput').checked = false;
@@ -1364,8 +1487,9 @@
             if (!song) return;
 
             // 수정 폼에 기존 데이터 채우기
-            document.getElementById('editStationInput').value = song.station;
-            document.getElementById('editProgramInput').value = song.program;
+            const programValue = `${song.station}|${song.program}`;
+            document.getElementById('editProgramSelect').value = programValue;
+            
             document.getElementById('editTitleInput').value = song.title;
             document.getElementById('editArtistInput').value = song.artist || '';
             document.getElementById('editIsNewInput').checked = song.isNew || false;
@@ -1389,16 +1513,18 @@
         function saveEdit() {
             if (!editingSongId) return;
 
-            const station = document.getElementById('editStationInput').value.trim();
-            const program = document.getElementById('editProgramInput').value.trim();
+            const programValue = document.getElementById('editProgramSelect').value;
             const title = document.getElementById('editTitleInput').value.trim();
             const artist = document.getElementById('editArtistInput').value.trim();
             const isNew = document.getElementById('editIsNewInput').checked;
 
-            if (!station || !program || !title) {
-                alert('방송사, 프로그램명, 곡명을 입력해주세요.');
+            if (!programValue || !title) {
+                alert('프로그램과 곡명을 입력해주세요.');
                 return;
             }
+
+            // "방송사|프로그램명" 형태를 분리
+            const [station, program] = programValue.split('|');
 
             const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
             const songIndex = playlists[dateKey].findIndex(s => s.id === editingSongId);
@@ -1459,4 +1585,3 @@
     </script>
 </body>
 </html>
-
