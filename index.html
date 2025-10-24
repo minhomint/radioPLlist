@@ -283,8 +283,8 @@
             background: white;
             border-radius: 20px;
             padding: 24px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 2px solid #ccfbf1;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
         }
 
         /* 달력 */
@@ -373,7 +373,7 @@
             font-weight: 500;
             font-size: 0.95em;
             position: relative;
-            background: #fafafa;
+            background: #f9fafb;
             min-height: 42px;
         }
 
@@ -393,33 +393,72 @@
             box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
         }
 
-        .day.has-data {
-            background: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%);
-            font-weight: bold;
-            border: 3px solid #14b8a6;
-            box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #14b8a6;
-            color: #0f766e;
-        }
-
-        .day.has-data::after {
-            content: '⭐';
-            position: absolute;
-            bottom: 2px;
-            right: 2px;
-            font-size: 11px;
-        }
-
-        .day.has-new::after {
-            content: '🔴';
-            position: absolute;
-            bottom: 2px;
-            right: 2px;
-            font-size: 11px;
-            animation: newPulse 2s infinite;
+        .day.selected.has-data {
+            border: 2px solid #5eead4;
         }
 
         .day.selected.has-data::after {
-            color: white;
+            background: white;
+        }
+
+        .day.selected.has-new {
+            border: 2px solid #f43f5e !important;
+        }
+
+        .day.selected.has-new::after {
+            filter: brightness(1.5);
+            color: #ffd700;
+        }
+
+        .day.has-data {
+            background: #ffffff;
+            font-weight: 600;
+            border: 2px solid #5eead4;
+            color: #0f766e;
+            transition: all 0.2s;
+        }
+
+        .day.has-data:hover {
+            border-color: #2dd4bf;
+            transform: scale(1.05);
+        }
+
+        .day.has-data::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: #14b8a6;
+            border-radius: 50%;
+        }
+
+        .day.has-new {
+            border: 2px solid #f43f5e !important;
+            background: #ffffff;
+        }
+
+        .day.has-new::after {
+            content: '⭐';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 10px;
+            animation: none;
+            background: none;
+            width: auto;
+            height: auto;
+            border-radius: 0;
+            transform: none;
+            left: auto;
+            bottom: auto;
+        }
+
+        .day.selected.has-data::after,
+        .day.selected.has-new::after {
+            display: block;
         }
 
         .day.empty {
@@ -865,15 +904,13 @@
             .day.has-data::after {
                 width: 3px;
                 height: 3px;
-                bottom: 2px;
-            }
-
-            .day.has-data::after {
-                font-size: 9px;
+                bottom: 3px;
             }
 
             .day.has-new::after {
-                font-size: 9px;
+                font-size: 8px;
+                top: 1px;
+                right: 1px;
             }
 
             .playlist-header {
@@ -1077,6 +1114,17 @@
 
             .playlist-date {
                 font-size: 1.1em;
+            }
+
+            .day.has-data::after {
+                width: 2.5px;
+                height: 2.5px;
+            }
+
+            .day.has-new::after {
+                font-size: 7px;
+                top: 1px;
+                right: 1px;
             }
 
             .new-badge {
