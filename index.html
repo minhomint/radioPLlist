@@ -13,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
-            background: linear-gradient(135deg, #e0f9f4 0%, #d4f4ed 100%);
+            background: linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%);
             min-height: 100vh;
             padding: 20px;
             -webkit-font-smoothing: antialiased;
@@ -32,12 +32,12 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #7ee8d4 0%, #5dddc7 100%);
+            background: linear-gradient(135deg, #14b8a6 0%, #10b981 100%);
             border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #5dddc7 0%, #4bcdb9 100%);
+            background: linear-gradient(135deg, #0f766e 0%, #059669 100%);
         }
 
         .container {
@@ -47,11 +47,11 @@
 
         /* 헤더 배너 */
         .header-banner {
-            background: linear-gradient(135deg, #7ee8d4 0%, #5dddc7 100%);
+            background: linear-gradient(135deg, #14b8a6 0%, #10b981 100%);
             border-radius: 20px;
             padding: 25px 40px;
             margin-bottom: 20px;
-            box-shadow: 0 8px 30px rgba(93, 221, 199, 0.3);
+            box-shadow: 0 8px 30px rgba(20, 184, 166, 0.3);
             position: relative;
             text-align: center;
         }
@@ -71,21 +71,21 @@
             right: 30px;
             width: 55px;
             height: 55px;
-            background: linear-gradient(135deg, #7ee8d4 0%, #5dddc7 100%);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             border-radius: 50%;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(93, 221, 199, 0.4);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
             transition: all 0.3s;
             z-index: 1000;
         }
 
         .admin-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(93, 221, 199, 0.6);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
         }
 
         .admin-btn:active {
@@ -152,7 +152,7 @@
         }
 
         .modal-content h2 {
-            color: #5dddc7;
+            color: #0f766e;
             margin-bottom: 25px;
             text-align: center;
             font-size: 1.5em;
@@ -190,14 +190,14 @@
         }
 
         .btn-login {
-            background: linear-gradient(135deg, #7ee8d4 0%, #5dddc7 100%);
+            background: linear-gradient(135deg, #14b8a6 0%, #10b981 100%);
             color: white;
-            box-shadow: 0 2px 8px rgba(93, 221, 199, 0.3);
+            box-shadow: 0 2px 8px rgba(20, 184, 166, 0.3);
         }
 
         .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(93, 221, 199, 0.4);
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
         }
 
         .btn-login:active {
@@ -220,8 +220,15 @@
         /* 메인 레이아웃 */
         .main-layout {
             display: grid;
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: 300px 1fr;
             gap: 20px;
+        }
+
+        @media (max-width: 1200px) {
+            .main-layout {
+                grid-template-columns: 280px 1fr;
+                gap: 15px;
+            }
         }
 
         @media (max-width: 1024px) {
@@ -263,7 +270,7 @@
             }
 
             .main-layout {
-                grid-template-columns: 300px 1fr;
+                grid-template-columns: 320px 1fr;
             }
 
             .header-banner h1 {
@@ -277,6 +284,7 @@
             border-radius: 20px;
             padding: 20px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 2px solid #ccfbf1;
         }
 
         /* 달력 */
@@ -290,13 +298,13 @@
         .calendar-year {
             font-size: 1em;
             font-weight: bold;
-            color: #5dddc7;
+            color: #14b8a6;
         }
 
         .calendar-month {
             font-size: 1.3em;
             font-weight: bold;
-            color: #5dddc7;
+            color: #14b8a6;
             text-align: center;
         }
 
@@ -307,8 +315,8 @@
 
         .nav-btn {
             background: transparent;
-            border: 2px solid #5dddc7;
-            color: #5dddc7;
+            border: 2px solid #14b8a6;
+            color: #14b8a6;
             width: 30px;
             height: 30px;
             border-radius: 8px;
@@ -321,7 +329,7 @@
         }
 
         .nav-btn:hover {
-            background: #5dddc7;
+            background: #14b8a6;
             color: white;
         }
 
@@ -369,7 +377,7 @@
         }
 
         .day:hover {
-            background: #d4f4ed;
+            background: #ccfbf1;
             transform: scale(1.05);
         }
 
@@ -378,23 +386,33 @@
         }
 
         .day.selected {
-            background: linear-gradient(135deg, #7ee8d4 0%, #5dddc7 100%);
+            background: linear-gradient(135deg, #14b8a6 0%, #10b981 100%);
             color: white;
             font-weight: bold;
-            box-shadow: 0 4px 12px rgba(93, 221, 199, 0.3);
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
         }
 
         .day.has-data {
             background: #fff9c4;
             font-weight: bold;
+            border: 2px solid #5eead4;
+            box-shadow: 0 2px 8px rgba(94, 234, 212, 0.2);
         }
 
         .day.has-data::after {
-            content: '⭐';
+            content: '';
             position: absolute;
-            bottom: 2px;
-            right: 2px;
-            font-size: 10px;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: #14b8a6;
+            border-radius: 50%;
+        }
+
+        .day.selected.has-data::after {
+            background: white;
         }
 
         .day.empty {
@@ -415,7 +433,7 @@
         .playlist-date {
             font-size: 1.3em;
             font-weight: bold;
-            color: #5dddc7;
+            color: #0f766e;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -432,18 +450,18 @@
 
         /* 곡 추가 폼 */
         .add-form {
-            background: linear-gradient(135deg, #e0f9f4 0%, #d4f4ed 100%);
+            background: linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%);
             padding: 20px;
             border-radius: 15px;
             margin-bottom: 20px;
             display: none;
-            border: 2px dashed #5dddc7;
+            border: 2px dashed #14b8a6;
         }
 
         .add-form.show { display: block; }
 
         .add-form h3 {
-            color: #5dddc7;
+            color: #0f766e;
             margin-bottom: 15px;
         }
 
@@ -474,8 +492,8 @@
         .form-group select:focus,
         .form-group input:focus {
             outline: none;
-            border-color: #5dddc7;
-            box-shadow: 0 0 0 3px rgba(93, 221, 199, 0.1);
+            border-color: #14b8a6;
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
         }
 
         .form-group select {
@@ -506,7 +524,7 @@
             width: 20px;
             height: 20px;
             cursor: pointer;
-            accent-color: #5dddc7;
+            accent-color: #14b8a6;
         }
 
         .checkbox-group label {
@@ -550,7 +568,7 @@
 
         /* 선곡표 섹션 */
         .playlist-section h3 {
-            color: #5dddc7;
+            color: #0f766e;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
@@ -567,7 +585,7 @@
             background: #f9f9f9;
             padding: 16px;
             border-radius: 15px;
-            border-left: 4px solid #5dddc7;
+            border-left: 4px solid #14b8a6;
             transition: all 0.3s;
         }
 
@@ -585,8 +603,8 @@
         }
 
         .station-badge {
-            background: linear-gradient(135deg, #7ee8d4 0%, #5dddc7 100%);
-            color: white;
+            background: linear-gradient(135deg, #5eead4 0%, #2dd4bf 100%);
+            color: #064e3b;
             padding: 5px 12px;
             border-radius: 12px;
             font-size: 0.85em;
@@ -594,19 +612,27 @@
         }
 
         .new-badge {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
             color: white;
-            padding: 4px 10px;
-            border-radius: 10px;
+            padding: 5px 12px;
+            border-radius: 12px;
             font-size: 0.75em;
             font-weight: bold;
             margin-left: 6px;
+            box-shadow: 0 2px 8px rgba(244, 63, 94, 0.3);
             animation: newPulse 2s infinite;
+            letter-spacing: 0.5px;
         }
 
         @keyframes newPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
+            0%, 100% { 
+                opacity: 1; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.85; 
+                transform: scale(1.05);
+            }
         }
 
         .song-actions {
@@ -707,10 +733,10 @@
             bottom: 30px;
             right: 30px;
             background: white;
-            color: #5dddc7;
+            color: #14b8a6;
             padding: 15px 30px;
             border-radius: 30px;
-            border: 2px solid #5dddc7;
+            border: 2px solid #14b8a6;
             cursor: pointer;
             font-size: 1em;
             font-weight: bold;
@@ -723,10 +749,10 @@
         }
 
         .message-btn:hover {
-            background: #5dddc7;
+            background: #14b8a6;
             color: white;
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(93, 221, 199, 0.3);
+            box-shadow: 0 6px 20px rgba(20, 184, 166, 0.3);
         }
 
         .message-btn:active {
@@ -830,9 +856,9 @@
             }
 
             .day.has-data::after {
-                font-size: 8px;
-                bottom: 1px;
-                right: 1px;
+                width: 3px;
+                height: 3px;
+                bottom: 2px;
             }
 
             .playlist-header {
@@ -920,7 +946,7 @@
 
             .new-badge {
                 font-size: 0.7em;
-                padding: 3px 8px;
+                padding: 4px 10px;
                 margin-left: 4px;
             }
 
@@ -1040,7 +1066,7 @@
 
             .new-badge {
                 font-size: 0.65em;
-                padding: 2px 6px;
+                padding: 3px 8px;
             }
 
             .message-btn {
@@ -1234,7 +1260,7 @@
             measurementId: "G-SRN2TZCE82"
         };
 
-        const ADMIN_PASSWORD = "admin1234";
+        const ADMIN_PASSWORD = "@minho0728";
 
         const programs = {
             'KBS': ['주현미의 러브레터', '은가은의 빛나는 트로트'],
