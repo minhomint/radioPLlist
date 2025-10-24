@@ -3,27 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💫 민호특공대가 함께 만든 라디오 선곡표</title>
+    <title>💫 라디오 선곡표</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html {
-            -webkit-text-size-adjust: 100%;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(94, 234, 212, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(45, 212, 191, 0.1) 0%, transparent 50%),
-                linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+            background: linear-gradient(135deg, #e0f9f4 0%, #d4f4ed 100%);
             min-height: 100vh;
-            padding: 15px;
+            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 스크롤바 스타일 */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #7ee8d4 0%, #5dddc7 100%);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #5dddc7 0%, #4bcdb9 100%);
         }
 
         .container {
@@ -31,758 +45,568 @@
             margin: 0 auto;
         }
 
-        /* 상단 배너 */
-        .banner-section {
-            background: linear-gradient(135deg, #5eead4 0%, #2dd4bf 50%, #14b8a6 100%);
+        /* 헤더 배너 */
+        .header-banner {
+            background: linear-gradient(135deg, #7ee8d4 0%, #5dddc7 100%);
             border-radius: 20px;
-            padding: 35px 20px;
+            padding: 25px 40px;
             margin-bottom: 20px;
-            box-shadow: 0 8px 30px rgba(20, 184, 166, 0.3);
+            box-shadow: 0 8px 30px rgba(93, 221, 199, 0.3);
             position: relative;
-            border: 3px solid white;
             text-align: center;
-            overflow: hidden;
         }
 
-        .banner-section::before {
-            content: '⭐';
-            position: absolute;
-            font-size: 100px;
-            opacity: 0.1;
-            top: -20px;
-            left: 20px;
-            animation: twinkle 2s ease-in-out infinite;
-        }
-
-        .banner-section::after {
-            content: '✨';
-            position: absolute;
-            font-size: 80px;
-            opacity: 0.15;
-            bottom: -10px;
-            right: 30px;
-            animation: twinkle 2.5s ease-in-out infinite;
-        }
-
-        .banner-title {
-            font-size: 1.8rem;
-            font-weight: bold;
+        .header-banner h1 {
             color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            animation: fadeIn 1s ease-in;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-size: 1.8em;
+            text-align: center;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.1; transform: scale(1); }
-            50% { opacity: 0.2; transform: scale(1.1); }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .banner-section {
-                padding: 25px 15px;
-                margin-bottom: 15px;
-            }
-
-            .banner-section::before {
-                font-size: 60px;
-            }
-
-            .banner-section::after {
-                font-size: 50px;
-            }
-
-            .banner-title {
-                font-size: 1.2rem;
-                gap: 8px;
-                flex-wrap: wrap;
-            }
-        }
-
-        /* 관리자 아이콘 */
-        .admin-icon {
+        /* 관리자 버튼 */
+        .admin-btn {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            top: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #7ee8d4 0%, #5dddc7 100%);
             border-radius: 50%;
+            border: none;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 4px 15px rgba(93, 221, 199, 0.4);
             transition: all 0.3s;
-            z-index: 100;
+            z-index: 1000;
         }
 
-        .admin-icon:hover {
-            transform: scale(1.15) rotate(5deg);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+        .admin-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(93, 221, 199, 0.6);
         }
 
-        .admin-icon:active {
+        .admin-btn:active {
             transform: scale(1.05);
         }
 
-        .admin-icon.logged-in {
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+        .admin-btn.logged-in {
+            background: linear-gradient(135deg, #ef5350 0%, #e53935 100%);
+            box-shadow: 0 4px 15px rgba(239, 83, 80, 0.4);
         }
 
-        .admin-icon.logged-in:hover {
-            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
-        }
-
-        .admin-icon svg {
-            width: 24px;
-            height: 24px;
-            color: white;
-        }
-
-        /* 문자 사연 버튼 */
-        .message-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
-            color: #14b8a6;
-            padding: 16px 28px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 16px;
-            box-shadow: 0 6px 20px rgba(20, 184, 166, 0.25);
-            cursor: pointer;
-            transition: all 0.3s;
-            z-index: 100;
-            border: 2px solid #14b8a6;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-        }
-
-        .message-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 8px 30px rgba(20, 184, 166, 0.35);
-            background: linear-gradient(135deg, #5eead4 0%, #2dd4bf 100%);
-            color: white;
-            border-color: #5eead4;
-        }
-
-        .message-btn:active {
-            transform: translateY(-3px) scale(1.03);
-        }
-
-        @media (max-width: 768px) {
-            .admin-icon {
-                width: 48px;
-                height: 48px;
-                top: 15px;
-                right: 15px;
-            }
-
-            .admin-icon svg {
-                width: 20px;
-                height: 20px;
-            }
-
-            .message-btn {
-                bottom: 20px;
-                right: 20px;
-                padding: 14px 24px;
-                font-size: 15px;
-            }
-        }
-
-        /* 로그인 모달 */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 35px;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 420px;
-            width: 100%;
-            animation: modalSlideIn 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            .modal-overlay {
-                padding: 15px;
-            }
-
-            .modal-content {
-                padding: 25px;
-                max-width: 100%;
-            }
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #14b8a6;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #0f766e;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #99f6e4;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: all 0.3s;
-        }
-
-        .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #99f6e4;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: all 0.3s;
-            background: white;
-            cursor: pointer;
-        }
-
-        .form-group select:disabled {
-            background: #f3f4f6;
-            color: #9ca3af;
-            cursor: not-allowed;
-        }
-
-        .form-group select optgroup {
-            font-weight: bold;
-            color: #0f766e;
-            background: #f0fdfa;
-            font-size: 14px;
-            padding: 5px;
-        }
-
-        .form-group select option {
-            font-weight: normal;
-            color: #1f2937;
-            padding: 8px;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #14b8a6;
-            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: #ef4444;
-        }
-
-        .checkbox-group label {
-            cursor: pointer;
-            font-weight: 600;
-            color: #0f766e;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .error-message {
-            color: #dc2626;
-            font-size: 14px;
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 25px;
-        }
-
-        .modal-btn {
-            flex: 1;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .modal-btn.primary {
-            background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
-            color: white;
-        }
-
-        .modal-btn.primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
-        }
-
-        .modal-btn.secondary {
-            background: #f0f0f0;
-            color: #666;
-        }
-
-        .modal-btn.secondary:hover {
-            background: #e0e0e0;
-        }
-
-        .modal-btn.danger {
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-            color: white;
-        }
-
-        .modal-btn.danger:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        .admin-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
         }
 
         /* 관리자 배지 */
         .admin-badge {
             position: fixed;
-            top: 85px;
-            right: 20px;
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            top: 100px;
+            right: 30px;
+            background: linear-gradient(135deg, #ef5350 0%, #e53935 100%);
             color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 14px;
             font-weight: bold;
-            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+            box-shadow: 0 4px 15px rgba(239, 83, 80, 0.4);
             display: none;
-            z-index: 99;
+            z-index: 999;
         }
 
         .admin-badge.active {
             display: block;
-            animation: slideInRight 0.3s ease;
+            animation: slideIn 0.3s;
         }
 
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        @media (max-width: 768px) {
-            .admin-badge {
-                top: 70px;
-                right: 15px;
-                padding: 6px 12px;
-                font-size: 12px;
-            }
+        /* 로그인 모달 */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* 컨테이너 레이아웃 */
+        .modal.show { display: flex; }
+
+        .modal-content {
+            background: white;
+            padding: 35px;
+            border-radius: 25px;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content h2 {
+            color: #5dddc7;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        .modal-content input:focus {
+            outline: none;
+            border-color: #5dddc7;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #7ee8d4 0%, #5dddc7 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(93, 221, 199, 0.3);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(93, 221, 199, 0.4);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .btn-cancel {
+            background: #eeeeee;
+            color: #757575;
+        }
+
+        .btn-cancel:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-cancel:active {
+            background: #d5d5d5;
+        }
+
+        /* 메인 레이아웃 */
         .main-layout {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 280px 1fr;
             gap: 20px;
-            margin-top: 20px;
         }
 
         @media (max-width: 1024px) {
             .main-layout {
                 grid-template-columns: 1fr;
             }
+
+            .card:first-child {
+                max-width: 500px;
+                margin: 0 auto;
+            }
         }
 
-        /* 캘린더 섹션 */
-        .calendar-section {
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .header-banner {
+                padding: 28px 50px;
+            }
+
+            .header-banner h1 {
+                font-size: 1.5em;
+            }
+
+            .main-layout {
+                padding: 10px;
+            }
+
+            .calendar-days {
+                gap: 6px;
+            }
+
+            .day {
+                font-size: 1em;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1600px;
+            }
+
+            .main-layout {
+                grid-template-columns: 300px 1fr;
+            }
+
+            .header-banner h1 {
+                font-size: 2em;
+            }
+        }
+
+        /* 카드 */
+        .card {
             background: white;
-            border-radius: 16px;
-            padding: 25px;
+            border-radius: 20px;
+            padding: 20px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 2px solid #e0f2fe;
         }
 
+        /* 달력 */
         .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 15px;
+        }
+
+        .calendar-year {
+            font-size: 1em;
+            font-weight: bold;
+            color: #5dddc7;
+        }
+
+        .calendar-month {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #5dddc7;
+            text-align: center;
         }
 
         .calendar-nav {
             display: flex;
-            gap: 10px;
+            gap: 6px;
         }
 
         .nav-btn {
-            background: linear-gradient(135deg, #5eead4 0%, #2dd4bf 100%);
-            color: white;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
+            background: transparent;
+            border: 2px solid #5dddc7;
+            color: #5dddc7;
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(20, 184, 166, 0.2);
         }
 
         .nav-btn:hover {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+            background: #5dddc7;
+            color: white;
         }
 
         .nav-btn:active {
-            transform: scale(1);
-        }
-
-        .calendar-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #0f766e;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            transform: scale(0.95);
         }
 
         .weekdays {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
+            gap: 4px;
+            margin-top: 15px;
             margin-bottom: 8px;
+            text-align: center;
         }
 
         .weekday {
-            text-align: center;
-            font-weight: bold;
-            color: #0f766e;
-            padding: 10px 0;
-            font-size: 14px;
+            padding: 6px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #616161;
         }
 
-        .weekday.sunday {
-            color: #dc2626;
-        }
+        .weekday:first-child { color: #ef5350; }
+        .weekday:last-child { color: #42a5f5; }
 
-        .weekday.saturday {
-            color: #2563eb;
-        }
-
-        .calendar-grid {
+        .calendar-days {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
+            gap: 4px;
         }
 
-        .calendar-day {
+        .day {
             aspect-ratio: 1;
-            border: 2px solid #e5e7eb;
-            background: white;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-            color: #666;
-            font-size: 15px;
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 0.9em;
+            position: relative;
+            background: #fafafa;
         }
 
-        .calendar-day:hover:not(:disabled) {
-            border-color: #14b8a6;
+        .day:hover {
+            background: #d4f4ed;
             transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.2);
         }
 
-        .calendar-day:disabled {
-            cursor: default;
-            opacity: 0;
+        .day:active {
+            transform: scale(0.98);
         }
 
-        .calendar-day.selected {
-            background: linear-gradient(135deg, #5eead4 0%, #2dd4bf 100%);
+        .day.selected {
+            background: linear-gradient(135deg, #7ee8d4 0%, #5dddc7 100%);
             color: white;
-            border-color: #14b8a6;
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(93, 221, 199, 0.3);
         }
 
-        .calendar-day.has-playlist {
-            background: #ccfbf1;
-            border-color: #5eead4;
+        .day.has-data {
+            background: #fff9c4;
             font-weight: bold;
         }
 
-        /* 신곡이 있는 날짜 표시 */
-        .calendar-day.has-new-song {
-            background: #fee2e2;
-            border-color: #fca5a5;
-        }
-
-        .calendar-day.has-new-song::after {
+        .day.has-data::after {
             content: '⭐';
             position: absolute;
-            top: 2px;
+            bottom: 2px;
             right: 2px;
-            font-size: 12px;
-            animation: sparkle 1.5s ease-in-out infinite;
+            font-size: 10px;
         }
 
-        @keyframes sparkle {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.2); }
+        .day.empty {
+            opacity: 0;
+            pointer-events: none;
         }
 
-        .calendar-day.has-playlist::before {
-            content: '';
-            position: absolute;
-            bottom: 4px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 6px;
-            height: 6px;
-            background: #14b8a6;
-            border-radius: 50%;
-        }
-
-        /* 신곡이 있으면 빨간 점도 추가 */
-        .calendar-day.has-new-song::before {
-            background: #ef4444;
-        }
-
-        @media (max-width: 768px) {
-            .calendar-section {
-                padding: 20px;
-            }
-
-            .calendar-title {
-                font-size: 1.1rem;
-            }
-
-            .nav-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 16px;
-            }
-
-            .weekday {
-                font-size: 12px;
-                padding: 8px 0;
-            }
-
-            .calendar-day {
-                font-size: 13px;
-                border-radius: 8px;
-            }
-
-            .calendar-day.has-new-song::after {
-                font-size: 10px;
-                top: 1px;
-                right: 1px;
-            }
-        }
-
-        /* 플레이리스트 섹션 */
-        .playlist-section {
-            background: white;
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 2px solid #e0f2fe;
-        }
-
+        /* 플레이리스트 */
         .playlist-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
             margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 2px solid #f0f0f0;
         }
 
         .playlist-date {
-            font-size: 1.3rem;
+            font-size: 1.3em;
             font-weight: bold;
-            color: #0f766e;
-            margin-bottom: 8px;
+            color: #5dddc7;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .song-count {
-            color: #14b8a6;
-            font-size: 14px;
-            font-weight: 600;
+            background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
         }
 
-        .no-date-selected {
-            text-align: center;
-            padding: 60px 20px;
-            color: #999;
-        }
-
-        .no-date-selected .icon {
-            font-size: 80px;
+        /* 곡 추가 폼 */
+        .add-form {
+            background: linear-gradient(135deg, #e0f9f4 0%, #d4f4ed 100%);
+            padding: 20px;
+            border-radius: 15px;
             margin-bottom: 20px;
-            animation: twinkle 2s ease-in-out infinite;
+            display: none;
+            border: 2px dashed #5dddc7;
+        }
+
+        .add-form.show { display: block; }
+
+        .add-form h3 {
+            color: #5dddc7;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #424242;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+            line-height: 1.5;
+            background: white;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #5dddc7;
+            box-shadow: 0 0 0 3px rgba(93, 221, 199, 0.1);
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group input::placeholder {
+            color: #9e9e9e;
+        }
+
+        .form-group input:disabled {
+            background: #f5f5f5;
+            cursor: not-allowed;
+            color: #9e9e9e;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #5dddc7;
+        }
+
+        .checkbox-group label {
+            cursor: pointer;
+            font-weight: 600;
+            color: #424242;
+            margin: 0;
+            user-select: none;
+        }
+
+        .region-group {
+            display: none;
+        }
+
+        .region-group.show {
+            display: block;
+        }
+
+        .btn-add {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-add:active {
+            transform: translateY(0);
+        }
+
+        /* 선곡표 섹션 */
+        .playlist-section h3 {
+            color: #5dddc7;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .song-list {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 20px;
         }
 
-        .song-item {
-            background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
-            border: 2px solid #99f6e4;
-            border-radius: 12px;
+        .song-card {
+            background: #f9f9f9;
             padding: 16px;
+            border-radius: 15px;
+            border-left: 4px solid #5dddc7;
+            transition: all 0.3s;
+        }
+
+        .song-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+        }
+
+        .song-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.3s;
-            position: relative;
+            margin-bottom: 10px;
         }
 
-        .song-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.15);
-        }
-
-        /* 신곡 표시 */
-        .song-item.new-song {
-            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-            border-color: #fca5a5;
-        }
-
-        .song-item.new-song::before {
-            content: '⭐ 신곡';
-            position: absolute;
-            top: -8px;
-            left: 12px;
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        .station-badge {
+            background: linear-gradient(135deg, #7ee8d4 0%, #5dddc7 100%);
             color: white;
-            padding: 3px 10px;
+            padding: 5px 12px;
             border-radius: 12px;
-            font-size: 11px;
+            font-size: 0.85em;
             font-weight: bold;
-            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
-            animation: pulse 2s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .song-info {
-            flex: 1;
-        }
-
-        .song-tags {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-        }
-
-        .station-tag {
-            background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+        .new-badge {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
             color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 0.75em;
             font-weight: bold;
+            margin-left: 6px;
+            animation: newPulse 2s infinite;
         }
 
-        .program-name {
-            background: white;
-            color: #0f766e;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            border: 1.5px solid #99f6e4;
-        }
-
-        .song-title {
-            font-size: 15px;
-            font-weight: bold;
-            color: #0f766e;
-            margin-bottom: 4px;
-        }
-
-        .song-artist {
-            font-size: 13px;
-            color: #14b8a6;
+        @keyframes newPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
 
         .song-actions {
@@ -790,330 +614,513 @@
             gap: 8px;
         }
 
-        .edit-btn, .delete-btn {
-            background: white;
-            border: 2px solid #e5e7eb;
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .edit-btn.admin-mode, .delete-btn.admin-mode {
-            display: flex;
-        }
-
-        .edit-btn:hover {
-            background: #eff6ff;
-            border-color: #3b82f6;
-            transform: scale(1.1);
-        }
-
-        .delete-btn:hover {
-            background: #fef2f2;
-            border-color: #ef4444;
-            transform: scale(1.1);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #999;
-        }
-
-        /* 곡 추가 폼 */
-        .add-song-form {
-            background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
-            border: 2px dashed #99f6e4;
-            border-radius: 12px;
-            padding: 20px;
-            display: none;
-        }
-
-        .add-song-form.admin-mode {
-            display: block;
-        }
-
-        .form-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #0f766e;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .input-group {
-            margin-bottom: 12px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-            color: #0f766e;
-            font-size: 13px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 10px 12px;
-            border: 2px solid #99f6e4;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        .input-group select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 2px solid #99f6e4;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.3s;
-            background: white;
-            cursor: pointer;
-        }
-
-        .input-group select:disabled {
-            background: #f3f4f6;
-            color: #9ca3af;
-            cursor: not-allowed;
-        }
-
-        .input-group select optgroup {
-            font-weight: bold;
-            color: #0f766e;
-            background: #f0fdfa;
-            font-size: 13px;
-            padding: 5px;
-        }
-
-        .input-group select option {
-            font-weight: normal;
-            color: #1f2937;
-            padding: 8px;
-        }
-
-        .input-group input:focus,
-        .input-group select:focus {
-            outline: none;
-            border-color: #14b8a6;
-            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
-            color: white;
+        .btn-edit,
+        .btn-delete {
+            padding: 6px 10px;
             border: none;
             border-radius: 8px;
-            font-weight: bold;
-            font-size: 15px;
             cursor: pointer;
+            font-size: 0.85em;
+            font-weight: bold;
             transition: all 0.3s;
-            margin-top: 8px;
+            display: none;
         }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+        .btn-edit.show,
+        .btn-delete.show {
+            display: inline-block;
         }
 
-        .submit-btn:active {
+        .btn-edit {
+            background: linear-gradient(135deg, #42a5f5 0%, #1e88e5 100%);
+            color: white;
+        }
+
+        .btn-edit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(66, 165, 245, 0.4);
+        }
+
+        .btn-edit:active {
             transform: translateY(0);
         }
 
+        .btn-delete {
+            background: linear-gradient(135deg, #ef5350 0%, #e53935 100%);
+            color: white;
+        }
+
+        .btn-delete:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(239, 83, 80, 0.4);
+        }
+
+        .btn-delete:active {
+            transform: translateY(0);
+        }
+
+        .program-name {
+            color: #616161;
+            font-size: 0.9em;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .song-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #212121;
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+
+        .song-artist {
+            color: #757575;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .no-date-selected,
+        .no-songs {
+            text-align: center;
+            padding: 60px 20px;
+            color: #bdbdbd;
+        }
+
+        .no-date-selected .icon,
+        .no-songs .icon {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+
+        .no-date-selected p,
+        .no-songs p {
+            font-size: 1.1em;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        /* 문자 사연 보내기 버튼 */
+        .message-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            color: #5dddc7;
+            padding: 15px 30px;
+            border-radius: 30px;
+            border: 2px solid #5dddc7;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            z-index: 900;
+        }
+
+        .message-btn:hover {
+            background: #5dddc7;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(93, 221, 199, 0.3);
+        }
+
+        .message-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .message-btn::before {
+            content: '💌';
+            font-size: 1.2em;
+        }
+
+        /* Firebase 상태 */
+        .firebase-status {
+            background: #fff9c4;
+            color: #f57f17;
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 0.9em;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .firebase-status.success {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .firebase-status.error {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        /* 모바일 최적화 */
         @media (max-width: 768px) {
-            .playlist-section {
-                padding: 20px;
+            body {
+                padding: 10px;
             }
 
-            .song-item {
-                padding: 14px;
+            .header-banner {
+                padding: 20px 25px;
             }
 
-            .song-item.new-song::before {
-                font-size: 10px;
-                padding: 2px 8px;
+            .header-banner h1 {
+                font-size: 1.1em;
+                line-height: 1.4;
             }
 
-            .edit-btn, .delete-btn {
-                width: 32px;
-                height: 32px;
+            .admin-btn {
+                width: 50px;
+                height: 50px;
+                top: 25px;
+                right: 25px;
+            }
+
+            .admin-btn svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .admin-badge {
+                top: 90px;
+                right: 25px;
+                font-size: 12px;
+                padding: 8px 14px;
+            }
+
+            .main-layout {
+                padding: 0;
+                gap: 15px;
+            }
+
+            .card {
+                padding: 18px;
+                border-radius: 16px;
+            }
+
+            .calendar-year {
+                font-size: 0.95em;
+            }
+
+            .calendar-month {
+                font-size: 1.2em;
+            }
+
+            .nav-btn {
+                width: 28px;
+                height: 28px;
                 font-size: 14px;
+            }
+
+            .weekday {
+                padding: 5px;
+                font-size: 0.8em;
+            }
+
+            .day {
+                font-size: 0.85em;
+                border-radius: 8px;
+            }
+
+            .day.has-data::after {
+                font-size: 8px;
+                bottom: 1px;
+                right: 1px;
+            }
+
+            .playlist-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                margin-bottom: 15px;
+                padding-bottom: 12px;
+            }
+
+            .playlist-date {
+                font-size: 1.2em;
+            }
+
+            .song-count {
+                font-size: 0.85em;
+                padding: 5px 12px;
+            }
+
+            .add-form {
+                padding: 15px;
+                border-radius: 12px;
+            }
+
+            .add-form h3 {
+                font-size: 1em;
+                margin-bottom: 12px;
+            }
+
+            .form-group {
+                margin-bottom: 12px;
+            }
+
+            .form-group label {
+                font-size: 0.9em;
+                margin-bottom: 4px;
+            }
+
+            .form-group select,
+            .form-group input {
+                padding: 10px;
+                font-size: 15px;
+                border-radius: 8px;
+            }
+
+            .btn-add {
+                padding: 11px;
+                font-size: 15px;
+                border-radius: 10px;
+            }
+
+            .playlist-section h3 {
+                font-size: 1em;
+                margin-bottom: 12px;
+            }
+
+            .song-card {
+                padding: 12px;
+                border-radius: 12px;
+            }
+
+            .station-badge {
+                font-size: 0.8em;
+                padding: 4px 10px;
+            }
+
+            .btn-edit,
+            .btn-delete {
+                padding: 4px 8px;
+                font-size: 0.8em;
+                border-radius: 6px;
+            }
+
+            .program-name {
+                font-size: 0.85em;
+            }
+
+            .song-title {
+                font-size: 1em;
+            }
+
+            .song-artist {
+                font-size: 0.85em;
+            }
+
+            .new-badge {
+                font-size: 0.7em;
+                padding: 3px 8px;
+                margin-left: 4px;
+            }
+
+            .checkbox-group {
+                padding: 10px;
+            }
+
+            .checkbox-group input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+            }
+
+            .checkbox-group label {
+                font-size: 0.9em;
+            }
+
+            .message-btn {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 24px;
+                font-size: 0.9em;
+            }
+
+            .no-date-selected,
+            .no-songs {
+                padding: 40px 15px;
+            }
+
+            .no-date-selected .icon,
+            .no-songs .icon {
+                font-size: 2.5em;
+            }
+
+            .modal-content {
+                padding: 25px;
+                border-radius: 18px;
+            }
+
+            .modal-content h2 {
+                font-size: 1.3em;
+                margin-bottom: 20px;
+            }
+
+            .modal-content input {
+                padding: 12px;
+                font-size: 15px;
+            }
+
+            .modal-buttons button {
+                padding: 12px;
+                font-size: 15px;
+            }
+
+            .firebase-status {
+                font-size: 0.85em;
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            body {
+                padding: 8px;
+            }
+
+            .header-banner {
+                padding: 18px 20px;
+            }
+
+            .header-banner h1 {
+                font-size: 1em;
+            }
+
+            .admin-btn {
+                width: 45px;
+                height: 45px;
+                top: 20px;
+                right: 20px;
+            }
+
+            .admin-btn svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            .admin-badge {
+                top: 75px;
+                right: 20px;
+                font-size: 11px;
+                padding: 6px 10px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .calendar-month {
+                font-size: 1.1em;
+            }
+
+            .nav-btn {
+                width: 26px;
+                height: 26px;
+                font-size: 13px;
+            }
+
+            .weekday {
+                font-size: 0.75em;
+            }
+
+            .day {
+                font-size: 0.8em;
+            }
+
+            .playlist-date {
+                font-size: 1.1em;
+            }
+
+            .new-badge {
+                font-size: 0.65em;
+                padding: 2px 6px;
+            }
+
+            .message-btn {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 20px;
+                font-size: 0.85em;
+            }
+
+            .message-btn::before {
+                font-size: 1em;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 관리자 아이콘 -->
-    <div class="admin-icon" id="adminIcon" onclick="toggleAdmin()">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-        </svg>
-    </div>
-
-    <!-- 관리자 배지 -->
-    <div class="admin-badge" id="adminBadge">
-        👑 관리자 모드
-    </div>
-
-    <!-- 문자 사연 버튼 -->
-    <a href="https://forms.gle/xQZTDzS2xrxTTRdF6" target="_blank" class="message-btn">
-        ✉️ 문자 사연
-    </a>
-
-    <!-- 로그인 모달 -->
-    <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOutsideClick(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <!-- 로그인 폼 -->
-            <div id="loginForm">
-                <h2 class="modal-title">🔒 관리자 로그인</h2>
-                <div class="form-group">
-                    <label for="passwordInput">비밀번호</label>
-                    <input type="password" id="passwordInput" placeholder="비밀번호를 입력하세요">
-                </div>
-                <div class="error-message" id="errorMessage"></div>
-                <div class="modal-buttons">
-                    <button class="modal-btn secondary" onclick="closeModal()">취소</button>
-                    <button class="modal-btn primary" onclick="login()">로그인</button>
-                </div>
-            </div>
-
-            <!-- 로그아웃 확인 -->
-            <div id="logoutForm" style="display: none;">
-                <h2 class="modal-title">👑 관리자 모드</h2>
-                <p style="text-align: center; color: #666; margin-bottom: 25px;">
-                    관리자 모드를 종료하시겠습니까?
-                </p>
-                <div class="modal-buttons">
-                    <button class="modal-btn secondary" onclick="closeModal()">취소</button>
-                    <button class="modal-btn danger" onclick="logout()">로그아웃</button>
-                </div>
-            </div>
-
-            <!-- 수정 폼 -->
-            <div id="editForm" style="display: none;">
-                <h2 class="modal-title">✏️ 곡 정보 수정</h2>
-                <div class="form-group">
-                    <label for="editProgramSelect">방송사 + 프로그램</label>
-                    <select id="editProgramSelect" onchange="toggleTbnRegion('editProgramSelect', 'editTbnRegionGroup')">
-                        <option value="">프로그램을 선택하세요</option>
-                        <optgroup label="KBS">
-                            <option value="KBS|주현미의 러브레터">주현미의 러브레터</option>
-                            <option value="KBS|은가은의 빛나는 트로트">은가은의 빛나는 트로트</option>
-                        </optgroup>
-                        <optgroup label="MBC">
-                            <option value="MBC|손태진의 트로트 라디오">손태진의 트로트 라디오</option>
-                            <option value="MBC|박준형 박영진의 2시만세">박준형 박영진의 2시만세</option>
-                        </optgroup>
-                        <optgroup label="SBS">
-                            <option value="SBS|이숙영의 러브FM">이숙영의 러브FM</option>
-                        </optgroup>
-                        <optgroup label="tbn">
-                            <option value="tbn|김효진, 양상국의 12시에 만나요">김효진, 양상국의 12시에 만나요</option>
-                            <option value="tbn|TBN 차차차">TBN 차차차</option>
-                            <option value="tbn|빵빵한 2시">빵빵한 2시</option>
-                            <option value="tbn|펀펀트롯">펀펀트롯</option>
-                            <option value="tbn|홍지영의 주말엔12시">홍지영의 주말엔12시</option>
-                            <option value="tbn|주말의 친한친구">주말의 친한친구</option>
-                            <option value="tbn|주말, 열두시에 만나요">주말, 열두시에 만나요</option>
-                            <option value="tbn|오후의 발견">오후의 발견</option>
-                            <option value="tbn|두시의 트롯팡팡">두시의 트롯팡팡</option>
-                            <option value="tbn|트로트 하이웨이">트로트 하이웨이</option>
-                            <option value="tbn|달리는 라디오">달리는 라디오</option>
-                        </optgroup>
-                    </select>
-                </div>
-                <div class="form-group" id="editTbnRegionGroup" style="display: none;">
-                    <label for="editTbnRegionSelect">tbn 지역</label>
-                    <select id="editTbnRegionSelect">
-                        <option value="">지역 선택</option>
-                        <option value="부산">부산</option>
-                        <option value="광주">광주</option>
-                        <option value="대구">대구</option>
-                        <option value="대전">대전</option>
-                        <option value="경인">경인</option>
-                        <option value="강원">강원</option>
-                        <option value="전북">전북</option>
-                        <option value="울산">울산</option>
-                        <option value="경남">경남</option>
-                        <option value="경북">경북</option>
-                        <option value="제주">제주</option>
-                        <option value="충남">충남</option>
-                        <option value="충북">충북</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="editTitleInput">곡명</label>
-                    <input type="text" id="editTitleInput" placeholder="곡명을 입력하세요">
-                </div>
-                <div class="form-group">
-                    <label for="editArtistInput">가수명 (선택)</label>
-                    <input type="text" id="editArtistInput" placeholder="가수명을 입력하세요">
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="editIsNewInput">
-                    <label for="editIsNewInput">⭐ 신곡으로 표시</label>
-                </div>
-                <div class="modal-buttons">
-                    <button class="modal-btn secondary" onclick="closeModal()">취소</button>
-                    <button class="modal-btn primary" onclick="saveEdit()">저장</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="container">
-        <!-- 상단 배너 -->
-        <div class="banner-section">
-            <h1 class="banner-title">
-                💫 민호특공대가 함께 만든 라디오 선곡표
-            </h1>
+        <!-- 헤더 배너 -->
+        <div class="header-banner">
+            <h1>💫 민호특공대가 함께 만든 라디오 선곡표</h1>
+        </div>
+
+        <!-- 관리자 버튼 -->
+        <button class="admin-btn" id="adminBtn" onclick="toggleAdmin()">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+        </button>
+
+        <!-- 관리자 배지 -->
+        <div class="admin-badge" id="adminBadge">⚡ 관리자 모드</div>
+
+        <!-- 로그인 모달 -->
+        <div class="modal" id="loginModal">
+            <div class="modal-content">
+                <h2>🔐 관리자 로그인</h2>
+                <input type="password" id="passwordInput" placeholder="비밀번호 입력" onkeypress="if(event.key==='Enter') login()">
+                <div class="modal-buttons">
+                    <button class="btn-login" onclick="login()">로그인</button>
+                    <button class="btn-cancel" onclick="closeModal()">취소</button>
+                </div>
+            </div>
         </div>
 
         <!-- 메인 레이아웃 -->
         <div class="main-layout">
-            <!-- 캘린더 섹션 -->
-            <div class="calendar-section">
+            <!-- 달력 -->
+            <div class="card">
+                <div class="firebase-status" id="firebaseStatus">Firebase 연결 중...</div>
+
                 <div class="calendar-header">
                     <div class="calendar-nav">
-                        <button class="nav-btn" onclick="changeYear(-1)" title="이전 년도">‹‹</button>
-                        <button class="nav-btn" onclick="changeMonth(-1)" title="이전 달">‹</button>
+                        <button class="nav-btn" onclick="changeYear(-1)">‹‹</button>
+                        <button class="nav-btn" onclick="changeMonth(-1)">‹</button>
                     </div>
-                    <div class="calendar-title">
-                        <span id="currentYear">2024년</span>
-                        <span id="currentMonth">1월</span>
+                    <div style="text-align: center;">
+                        <div class="calendar-year" id="calendarYear">2025년</div>
+                        <div class="calendar-month" id="calendarMonth">10월</div>
                     </div>
                     <div class="calendar-nav">
-                        <button class="nav-btn" onclick="changeMonth(1)" title="다음 달">›</button>
-                        <button class="nav-btn" onclick="changeYear(1)" title="다음 년도">››</button>
+                        <button class="nav-btn" onclick="changeMonth(1)">›</button>
+                        <button class="nav-btn" onclick="changeYear(1)">››</button>
                     </div>
                 </div>
 
                 <div class="weekdays">
-                    <div class="weekday sunday">일</div>
+                    <div class="weekday">일</div>
                     <div class="weekday">월</div>
                     <div class="weekday">화</div>
                     <div class="weekday">수</div>
                     <div class="weekday">목</div>
                     <div class="weekday">금</div>
-                    <div class="weekday saturday">토</div>
+                    <div class="weekday">토</div>
                 </div>
 
-                <div class="calendar-grid" id="calendarGrid"></div>
+                <div class="calendar-days" id="calendarDays"></div>
             </div>
 
-            <!-- 플레이리스트 섹션 -->
-            <div class="playlist-section">
+            <!-- 플레이리스트 -->
+            <div class="card">
                 <div class="no-date-selected" id="noDateSelected">
                     <div class="icon">📅</div>
                     <p>날짜를 선택해주세요</p>
@@ -1122,50 +1129,40 @@
                 <div id="playlistContent" style="display: none;">
                     <div class="playlist-header">
                         <div class="playlist-date">
-                            📻 <span id="selectedDateText"></span>
+                            <span>⭐</span>
+                            <span id="selectedDateText">2025년 10월 21일</span>
                         </div>
                         <div class="song-count" id="songCount">(0곡)</div>
                     </div>
 
-                    <div class="song-list" id="songList"></div>
-
                     <!-- 곡 추가 폼 -->
-                    <div class="add-song-form" id="addSongForm">
-                        <div class="form-title">
-                            ➕ 새 곡 추가
-                        </div>
-                        <div class="input-group">
-                            <label for="programSelect">방송사 + 프로그램</label>
-                            <select id="programSelect" onchange="toggleTbnRegion('programSelect', 'tbnRegionGroup')">
-                                <option value="">프로그램을 선택하세요</option>
-                                <optgroup label="KBS">
-                                    <option value="KBS|주현미의 러브레터">주현미의 러브레터</option>
-                                    <option value="KBS|은가은의 빛나는 트로트">은가은의 빛나는 트로트</option>
-                                </optgroup>
-                                <optgroup label="MBC">
-                                    <option value="MBC|손태진의 트로트 라디오">손태진의 트로트 라디오</option>
-                                    <option value="MBC|박준형 박영진의 2시만세">박준형 박영진의 2시만세</option>
-                                </optgroup>
-                                <optgroup label="SBS">
-                                    <option value="SBS|이숙영의 러브FM">이숙영의 러브FM</option>
-                                </optgroup>
-                                <optgroup label="tbn">
-                                    <option value="tbn|김효진, 양상국의 12시에 만나요">김효진, 양상국의 12시에 만나요</option>
-                                    <option value="tbn|TBN 차차차">TBN 차차차</option>
-                                    <option value="tbn|펀펀트롯">펀펀트롯</option>
-                                    <option value="tbn|홍지영의 주말엔12시">홍지영의 주말엔12시</option>
-                                    <option value="tbn|주말의 친한친구">주말의 친한친구</option>
-                                    <option value="tbn|주말, 열두시에 만나요">주말, 열두시에 만나요</option>
-                                    <option value="tbn|오후의 발견">오후의 발견</option>
-                                    <option value="tbn|두시의 트롯팡팡">두시의 트롯팡팡</option>
-                                    <option value="tbn|트로트 하이웨이">트로트 하이웨이</option>
-                                    <option value="tbn|달리는 라디오">달리는 라디오</option>
-                                </optgroup>
+                    <div class="add-form" id="addForm">
+                        <h3>🎵 곡 추가하기</h3>
+                        
+                        <div class="form-group">
+                            <label>방송사</label>
+                            <select id="stationSelect" onchange="updateProgramOptions()">
+                                <option value="">방송사 선택</option>
+                                <option value="KBS">KBS 해피FM</option>
+                                <option value="MBC">MBC 표준FM</option>
+                                <option value="SBS">SBS 러브FM</option>
+                                <option value="TBN">TBN 교통방송</option>
                             </select>
                         </div>
-                        <div class="input-group" id="tbnRegionGroup" style="display: none;">
-                            <label for="tbnRegionSelect">tbn 지역</label>
-                            <select id="tbnRegionSelect">
+
+                        <div class="form-group">
+                            <label>프로그램 (직접 입력 또는 선택)</label>
+                            <input type="text" 
+                                   id="programInput" 
+                                   list="programList" 
+                                   placeholder="프로그램명을 입력하거나 선택하세요"
+                                   onchange="checkTbnRegion()">
+                            <datalist id="programList"></datalist>
+                        </div>
+
+                        <div class="form-group region-group" id="regionGroup">
+                            <label>TBN 지역</label>
+                            <select id="regionSelect">
                                 <option value="">지역 선택</option>
                                 <option value="부산">부산</option>
                                 <option value="광주">광주</option>
@@ -1178,527 +1175,358 @@
                                 <option value="경남">경남</option>
                                 <option value="경북">경북</option>
                                 <option value="제주">제주</option>
+                                <option value="충남">충남</option>
                                 <option value="충북">충북</option>
                             </select>
                         </div>
-                        <div class="input-group">
-                            <label for="titleInput">곡명</label>
-                            <input type="text" id="titleInput" placeholder="곡명을 입력하세요">
+
+                        <div class="form-group">
+                            <label>곡명</label>
+                            <input type="text" id="titleInput" placeholder="예: 으라차차차">
                         </div>
-                        <div class="input-group">
-                            <label for="artistInput">가수명 (선택)</label>
-                            <input type="text" id="artistInput" placeholder="가수명을 입력하세요">
+
+                        <div class="form-group">
+                            <label>가수 (선택)</label>
+                            <input type="text" id="artistInput" placeholder="예: 김건모">
                         </div>
+
                         <div class="checkbox-group">
                             <input type="checkbox" id="isNewInput">
                             <label for="isNewInput">⭐ 신곡으로 표시</label>
                         </div>
-                        <button class="submit-btn" onclick="addSong()">추가하기</button>
+
+                        <button class="btn-add" onclick="addSong()">➕ 곡 추가</button>
+                    </div>
+
+                    <!-- 방송 선곡표 -->
+                    <div class="playlist-section">
+                        <h3>🎵 방송 선곡표</h3>
+                        <div class="song-list" id="songList">
+                            <div class="no-songs">
+                                <div class="icon">🎵</div>
+                                <p>선곡된 곡이 없습니다</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- 문자 사연 보내기 버튼 -->
+        <button class="message-btn" onclick="window.open('https://minhomint.github.io/radioOnAir/', '_blank')">
+            문자 사연 보내기
+        </button>
     </div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
     <script>
-        // 전역 변수
-        const ADMIN_PASSWORD = '@minho0728';
-        let isAdmin = false;
-        let currentDate = new Date();
-        let selectedDate = null;
-        let playlists = {};
-        let editingSongId = null; // 수정 중인 곡 ID
-
-        // 방송사 + 프로그램 통합 데이터
-        const programs = [
-            { station: 'KBS', program: '주현미의 러브레터' },
-            { station: 'KBS', program: '은가은의 빛나는 트로트' },
-            { station: 'MBC', program: '손태진의 트로트 라디오' },
-            { station: 'MBC', program: '박준형 박영진의 2시만세' },
-            { station: 'SBS', program: '이숙영의 러브FM' },
-            { station: 'tbn', program: '김효진, 양상국의 12시에 만나요' },
-            { station: 'tbn', program: 'TBN 차차차' },
-            { station: 'tbn', program: '펀펀트롯' },
-            { station: 'tbn', program: '홍지영의 주말엔12시' },
-            { station: 'tbn', program: '주말의 친한친구' },
-            { station: 'tbn', program: '주말, 열두시에 만나요' },
-            { station: 'tbn', program: '오후의 발견' },
-            { station: 'tbn', program: '두시의 트롯팡팡' },
-            { station: 'tbn', program: '트로트 하이웨이' },
-            { station: 'tbn', program: '달리는 라디오' }
-        ];
-
-        // tbn 지역 목록
-        const tbnRegions = [
-            '부산',
-            '광주',
-            '대구',
-            '대전',
-            '경인',
-            '강원',
-            '전북',
-            '울산',
-            '경남',
-            '경북',
-            '제주',
-            '충북'
-        ];
-
-        // 로컬 스토리지에서 데이터 불러오기
-        function loadFromLocalStorage() {
-            const saved = localStorage.getItem('radioPlaylists');
-            if (saved) {
-                playlists = JSON.parse(saved);
-            }
-        }
-
-        // 로컬 스토리지에 저장
-        function saveToLocalStorage() {
-            localStorage.setItem('radioPlaylists', JSON.stringify(playlists));
-        }
-
-        // tbn 지역 선택 필드 표시/숨김
-        function toggleTbnRegion(programSelectId, regionGroupId) {
-            const programSelect = document.getElementById(programSelectId);
-            const regionGroup = document.getElementById(regionGroupId);
-            const selectedValue = programSelect.value;
-
-            if (selectedValue && selectedValue.startsWith('tbn|')) {
-                regionGroup.style.display = 'block';
-            } else {
-                regionGroup.style.display = 'none';
-            }
-        }
-
-        // 페이지 로드 시 초기화
-        window.onload = function() {
-            loadFromLocalStorage();
-            renderCalendar();
+        const firebaseConfig = {
+            apiKey: "AIzaSyDk0r98Ag5htVKH-vVxUzG52SYNcX1G0sA",
+            authDomain: "analog-vol1-mv.firebaseapp.com",
+            databaseURL: "https://analog-vol1-mv-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "analog-vol1-mv",
+            storageBucket: "analog-vol1-mv.firebasestorage.app",
+            messagingSenderId: "40601613117",
+            appId: "1:40601613117:web:de43110328bc627df14b54",
+            measurementId: "G-SRN2TZCE82"
         };
 
-        // 모달 열기/닫기
+        const ADMIN_PASSWORD = "admin1234";
+
+        const programs = {
+            'KBS': ['주현미의 러브레터', '은가은의 빛나는 트로트'],
+            'MBC': ['손태진의 트로트 라디오', '박준형, 박영진의 2시 만세'],
+            'SBS': ['이숙영의 러브FM'],
+            'TBN': ['TBN 차차차(평일)', '빵빵한 2시', '펀펀트롯', '홍지영의 주말엔12시', '주말의 친한친구', '주말, 열두시에 만나요', '오후의 발견', '두시의 트롯팡팡', '트로트 하이웨이', '달리는 라디오']
+        };
+
+        let database, isAdmin = false, currentDate = new Date(), selectedDate = null;
+
+        try {
+            firebase.initializeApp(firebaseConfig);
+            database = firebase.database();
+            document.getElementById('firebaseStatus').textContent = '✅ Firebase 연결 성공!';
+            document.getElementById('firebaseStatus').classList.add('success');
+            
+            database.ref('playlists').on('value', () => {
+                renderCalendar();
+                if (selectedDate) renderPlaylist();
+            });
+        } catch (error) {
+            document.getElementById('firebaseStatus').textContent = '❌ Firebase 연결 실패';
+            document.getElementById('firebaseStatus').classList.add('error');
+        }
+
         function toggleAdmin() {
-            const modal = document.getElementById('modalOverlay');
-            const loginForm = document.getElementById('loginForm');
-            const logoutForm = document.getElementById('logoutForm');
-            const editForm = document.getElementById('editForm');
-            const errorMessage = document.getElementById('errorMessage');
+            isAdmin ? logout() : (document.getElementById('loginModal').classList.add('show'), document.getElementById('passwordInput').focus());
+        }
 
-            editForm.style.display = 'none';
-            errorMessage.textContent = '';
-
-            if (isAdmin) {
-                loginForm.style.display = 'none';
-                logoutForm.style.display = 'block';
+        function login() {
+            const password = document.getElementById('passwordInput').value;
+            if (password === ADMIN_PASSWORD) {
+                isAdmin = true;
+                document.getElementById('adminBtn').classList.add('logged-in');
+                document.getElementById('adminBadge').classList.add('active');
+                document.getElementById('addForm').classList.add('show');
+                document.querySelectorAll('.btn-edit, .btn-delete').forEach(btn => btn.classList.add('show'));
+                closeModal();
+                alert('✅ 관리자 로그인 성공!');
             } else {
-                loginForm.style.display = 'block';
-                logoutForm.style.display = 'none';
-                document.getElementById('passwordInput').value = '';
+                alert('❌ 비밀번호가 틀렸습니다.');
             }
+            document.getElementById('passwordInput').value = '';
+        }
 
-            modal.classList.add('active');
+        function logout() {
+            isAdmin = false;
+            document.getElementById('adminBtn').classList.remove('logged-in');
+            document.getElementById('adminBadge').classList.remove('active');
+            document.getElementById('addForm').classList.remove('show');
+            document.querySelectorAll('.btn-edit, .btn-delete').forEach(btn => btn.classList.remove('show'));
+            alert('👋 로그아웃 되었습니다.');
         }
 
         function closeModal() {
-            document.getElementById('modalOverlay').classList.remove('active');
-            document.getElementById('errorMessage').textContent = '';
-            document.getElementById('editTbnRegionGroup').style.display = 'none';
-            document.getElementById('editTbnRegionSelect').value = '';
+            document.getElementById('loginModal').classList.remove('show');
         }
 
-        function closeModalOnOutsideClick(event) {
-            if (event.target === document.getElementById('modalOverlay')) {
-                closeModal();
-            }
-        }
-
-        // 로그인
-        function login() {
-            const password = document.getElementById('passwordInput').value;
-            const errorMessage = document.getElementById('errorMessage');
-
-            if (password === ADMIN_PASSWORD) {
-                isAdmin = true;
-                document.getElementById('adminIcon').classList.add('logged-in');
-                document.getElementById('adminBadge').classList.add('active');
-                updateAdminUI();
-                closeModal();
-                alert('관리자 모드로 전환되었습니다.');
-            } else {
-                errorMessage.textContent = '비밀번호가 올바르지 않습니다.';
-                document.getElementById('passwordInput').value = '';
-            }
-        }
-
-        // 로그아웃
-        function logout() {
-            isAdmin = false;
-            document.getElementById('adminIcon').classList.remove('logged-in');
-            document.getElementById('adminBadge').classList.remove('active');
-            updateAdminUI();
-            closeModal();
-            alert('관리자 모드가 종료되었습니다.');
-        }
-
-        // 관리자 UI 업데이트
-        function updateAdminUI() {
-            const addForm = document.getElementById('addSongForm');
-            const editButtons = document.querySelectorAll('.edit-btn');
-            const deleteButtons = document.querySelectorAll('.delete-btn');
-
-            if (isAdmin) {
-                addForm.classList.add('admin-mode');
-                editButtons.forEach(btn => btn.classList.add('admin-mode'));
-                deleteButtons.forEach(btn => btn.classList.add('admin-mode'));
-            } else {
-                addForm.classList.remove('admin-mode');
-                editButtons.forEach(btn => btn.classList.remove('admin-mode'));
-                deleteButtons.forEach(btn => btn.classList.remove('admin-mode'));
-            }
-        }
-
-        // 년도 변경
-        function changeYear(direction) {
-            currentDate.setFullYear(currentDate.getFullYear() + direction);
-            renderCalendar();
-        }
-
-        // 월 변경
-        function changeMonth(direction) {
-            currentDate.setMonth(currentDate.getMonth() + direction);
-            renderCalendar();
-        }
-
-        // 달력 렌더링
         function renderCalendar() {
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-
-            document.getElementById('currentYear').textContent = `${year}년`;
-            document.getElementById('currentMonth').textContent = `${month + 1}월`;
-
-            const firstDay = new Date(year, month, 1);
-            const lastDay = new Date(year, month + 1, 0);
-            const daysInMonth = lastDay.getDate();
-            const startingDayOfWeek = firstDay.getDay();
-
-            const calendarGrid = document.getElementById('calendarGrid');
-            calendarGrid.innerHTML = '';
-
-            // 빈 칸
-            for (let i = 0; i < startingDayOfWeek; i++) {
-                const emptyDay = document.createElement('button');
-                emptyDay.className = 'calendar-day';
-                emptyDay.disabled = true;
-                calendarGrid.appendChild(emptyDay);
+            const year = currentDate.getFullYear(), month = currentDate.getMonth();
+            document.getElementById('calendarYear').textContent = `${year}년`;
+            document.getElementById('calendarMonth').textContent = `${month + 1}월`;
+            
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+            const daysContainer = document.getElementById('calendarDays');
+            daysContainer.innerHTML = '';
+            
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'day empty';
+                daysContainer.appendChild(emptyDay);
             }
-
-            // 날짜
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dayButton = document.createElement('button');
-                dayButton.className = 'calendar-day';
-                dayButton.textContent = day;
+            
+            for (let day = 1; day <= lastDate; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'day';
+                dayElement.textContent = day;
                 
                 const dateKey = getDateKey(year, month, day);
-                const songs = playlists[dateKey] || [];
+                if (database) {
+                    database.ref(`playlists/${dateKey}`).once('value', (snapshot) => {
+                        if (snapshot.exists() && snapshot.val().length > 0) {
+                            dayElement.classList.add('has-data');
+                        }
+                    });
+                }
                 
-                if (songs.length > 0) {
-                    dayButton.classList.add('has-playlist');
-                    
-                    // 신곡이 있는지 확인
-                    const hasNewSong = songs.some(song => song.isNew);
-                    if (hasNewSong) {
-                        dayButton.classList.add('has-new-song');
-                    }
+                if (selectedDate && selectedDate.getDate() === day && selectedDate.getMonth() === month && selectedDate.getFullYear() === year) {
+                    dayElement.classList.add('selected');
                 }
-
-                if (selectedDate && 
-                    selectedDate.getDate() === day && 
-                    selectedDate.getMonth() === month && 
-                    selectedDate.getFullYear() === year) {
-                    dayButton.classList.add('selected');
-                }
-
-                dayButton.onclick = () => selectDate(year, month, day);
-                calendarGrid.appendChild(dayButton);
+                
+                dayElement.onclick = () => selectDate(year, month, day);
+                daysContainer.appendChild(dayElement);
             }
         }
 
-        // 날짜 선택
         function selectDate(year, month, day) {
             selectedDate = new Date(year, month, day);
+            document.getElementById('noDateSelected').style.display = 'none';
+            document.getElementById('playlistContent').style.display = 'block';
+            document.getElementById('selectedDateText').textContent = `${year}년 ${month + 1}월 ${day}일`;
             renderCalendar();
             renderPlaylist();
         }
 
-        // 날짜 키 생성
+        function renderPlaylist() {
+            const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+            const songList = document.getElementById('songList');
+            
+            if (!database) {
+                songList.innerHTML = '<div class="no-songs"><div class="icon">❌</div><p>Firebase 연결이 필요합니다</p></div>';
+                return;
+            }
+            
+            database.ref(`playlists/${dateKey}`).once('value', (snapshot) => {
+                const playlist = snapshot.val() || [];
+                document.getElementById('songCount').textContent = `(${playlist.length}곡)`;
+                
+                if (playlist.length === 0) {
+                    songList.innerHTML = '<div class="no-songs"><div class="icon">🎵</div><p>선곡된 곡이 없습니다</p></div>';
+                    return;
+                }
+                
+                songList.innerHTML = playlist.map((song, index) => `
+                    <div class="song-card">
+                        <div class="song-header">
+                            <div style="display: flex; align-items: center;">
+                                <span class="station-badge">${song.station}</span>
+                                ${song.isNew ? '<span class="new-badge">NEW</span>' : ''}
+                            </div>
+                            <div class="song-actions">
+                                <button class="btn-edit ${isAdmin ? 'show' : ''}" onclick="editSong(${index})">✏️ 수정</button>
+                                <button class="btn-delete ${isAdmin ? 'show' : ''}" onclick="deleteSong(${index})">🗑️ 삭제</button>
+                            </div>
+                        </div>
+                        <div class="program-name">${song.program}</div>
+                        <div class="song-title">${song.title}</div>
+                        ${song.artist ? `<div class="song-artist">${song.artist}</div>` : ''}
+                    </div>
+                `).join('');
+            });
+        }
+
+        function updateProgramOptions() {
+            const station = document.getElementById('stationSelect').value;
+            const programInput = document.getElementById('programInput');
+            const datalist = document.getElementById('programList');
+            
+            datalist.innerHTML = '';
+            programInput.value = '';
+            
+            if (station && programs[station]) {
+                programs[station].forEach(program => {
+                    const option = document.createElement('option');
+                    option.value = program;
+                    datalist.appendChild(option);
+                });
+                programInput.disabled = false;
+                programInput.placeholder = '프로그램명을 입력하거나 선택하세요';
+            } else {
+                programInput.disabled = true;
+                programInput.placeholder = '먼저 방송사를 선택하세요';
+            }
+            
+            checkTbnRegion();
+        }
+
+        function checkTbnRegion() {
+            const station = document.getElementById('stationSelect').value;
+            const regionGroup = document.getElementById('regionGroup');
+            if (station === 'TBN') {
+                regionGroup.classList.add('show');
+            } else {
+                regionGroup.classList.remove('show');
+                document.getElementById('regionSelect').value = '';
+            }
+        }
+
+        function addSong() {
+            if (!selectedDate) { alert('날짜를 선택해주세요!'); return; }
+            if (!database) { alert('Firebase 연결이 필요합니다!'); return; }
+            
+            const station = document.getElementById('stationSelect').value;
+            const program = document.getElementById('programInput').value.trim();
+            const region = document.getElementById('regionSelect').value;
+            const title = document.getElementById('titleInput').value.trim();
+            const artist = document.getElementById('artistInput').value.trim();
+            const isNew = document.getElementById('isNewInput').checked;
+            
+            if (!station || !program || !title) { 
+                alert('방송사, 프로그램, 곡명을 입력해주세요!'); 
+                return; 
+            }
+            if (station === 'TBN' && !region) { 
+                alert('TBN 지역을 선택해주세요!'); 
+                return; 
+            }
+            
+            const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+            let finalProgram = program;
+            if (station === 'TBN' && region) finalProgram = `${program}(${region})`;
+            
+            const newSong = { 
+                id: Date.now().toString(), 
+                station, 
+                program: finalProgram, 
+                title, 
+                artist, 
+                isNew,
+                timestamp: Date.now() 
+            };
+            
+            database.ref(`playlists/${dateKey}`).once('value', (snapshot) => {
+                const currentPlaylist = snapshot.val() || [];
+                currentPlaylist.push(newSong);
+                database.ref(`playlists/${dateKey}`).set(currentPlaylist).then(() => {
+                    document.getElementById('stationSelect').value = '';
+                    document.getElementById('programInput').value = '';
+                    document.getElementById('programInput').disabled = true;
+                    document.getElementById('programInput').placeholder = '먼저 방송사를 선택하세요';
+                    document.getElementById('regionSelect').value = '';
+                    document.getElementById('regionGroup').classList.remove('show');
+                    document.getElementById('titleInput').value = '';
+                    document.getElementById('artistInput').value = '';
+                    document.getElementById('isNewInput').checked = false;
+                    renderPlaylist();
+                    alert('✅ 곡이 추가되었습니다!');
+                });
+            });
+        }
+
+        function editSong(index) {
+            const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+            database.ref(`playlists/${dateKey}`).once('value', (snapshot) => {
+                const playlist = snapshot.val() || [];
+                const song = playlist[index];
+                
+                document.getElementById('stationSelect').value = song.station;
+                updateProgramOptions();
+                
+                setTimeout(() => {
+                    const programMatch = song.program.match(/^(.+?)\((.+)\)$/);
+                    if (programMatch && song.station === 'TBN') {
+                        document.getElementById('programInput').value = programMatch[1];
+                        checkTbnRegion();
+                        setTimeout(() => { document.getElementById('regionSelect').value = programMatch[2]; }, 50);
+                    } else {
+                        document.getElementById('programInput').value = song.program;
+                    }
+                    document.getElementById('titleInput').value = song.title;
+                    document.getElementById('artistInput').value = song.artist || '';
+                    document.getElementById('isNewInput').checked = song.isNew || false;
+                }, 50);
+                
+                if (confirm('이 곡을 수정하시겠습니까?')) {
+                    playlist.splice(index, 1);
+                    database.ref(`playlists/${dateKey}`).set(playlist);
+                }
+            });
+        }
+
+        function deleteSong(index) {
+            if (!confirm('이 곡을 삭제하시겠습니까?')) return;
+            const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+            database.ref(`playlists/${dateKey}`).once('value', (snapshot) => {
+                const playlist = snapshot.val() || [];
+                playlist.splice(index, 1);
+                database.ref(`playlists/${dateKey}`).set(playlist).then(() => {
+                    renderPlaylist();
+                    alert('✅ 곡이 삭제되었습니다!');
+                });
+            });
+        }
+
         function getDateKey(year, month, day) {
             return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         }
 
-        // 플레이리스트 렌더링
-        function renderPlaylist() {
-            if (!selectedDate) {
-                document.getElementById('noDateSelected').style.display = 'block';
-                document.getElementById('playlistContent').style.display = 'none';
-                return;
-            }
-
-            document.getElementById('noDateSelected').style.display = 'none';
-            document.getElementById('playlistContent').style.display = 'block';
-
-            const year = selectedDate.getFullYear();
-            const month = selectedDate.getMonth() + 1;
-            const day = selectedDate.getDate();
-            
-            document.getElementById('selectedDateText').textContent = 
-                `${year}년 ${month}월 ${day}일`;
-
-            const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
-            const songs = playlists[dateKey] || [];
-
-            document.getElementById('songCount').textContent = `(${songs.length}곡)`;
-
-            const songList = document.getElementById('songList');
-            if (songs.length === 0) {
-                songList.innerHTML = `
-                    <div class="empty-state">
-                        <div style="font-size: 60px; margin-bottom: 15px; animation: twinkle 1.5s ease-in-out infinite;">⭐</div>
-                        <p>선곡된 곡이 없습니다</p>
-                    </div>
-                `;
-            } else {
-                songList.innerHTML = songs.map(song => `
-                    <div class="song-item ${song.isNew ? 'new-song' : ''}">
-                        <div class="song-info">
-                            <div class="song-tags">
-                                <span class="station-tag">${song.station}</span>
-                                <span class="program-name">${song.program}</span>
-                            </div>
-                            <div class="song-title">${song.title}</div>
-                            ${song.artist ? `<div class="song-artist">${song.artist}</div>` : ''}
-                        </div>
-                        <div class="song-actions">
-                            <button class="edit-btn ${isAdmin ? 'admin-mode' : ''}" onclick="editSong('${song.id}')" title="수정">
-                                ✏️
-                            </button>
-                            <button class="delete-btn ${isAdmin ? 'admin-mode' : ''}" onclick="deleteSong('${song.id}')" title="삭제">
-                                🗑️
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
-            }
-
-            updateAdminUI();
-        }
-
-        // 곡 추가 (관리자만)
-        function addSong() {
-            if (!isAdmin) {
-                alert('관리자만 곡을 추가할 수 있습니다.');
-                return;
-            }
-
-            if (!selectedDate) {
-                alert('날짜를 선택해주세요.');
-                return;
-            }
-
-            const programValue = document.getElementById('programSelect').value;
-            const title = document.getElementById('titleInput').value.trim();
-            const artist = document.getElementById('artistInput').value.trim();
-            const isNew = document.getElementById('isNewInput').checked;
-
-            if (!programValue || !title) {
-                alert('프로그램과 곡명을 입력해주세요.');
-                return;
-            }
-
-            // "방송사|프로그램명" 형태를 분리
-            const [station, programName] = programValue.split('|');
-
-            // tbn인 경우 지역 정보 추가
-            let finalProgram = programName;
-            if (station === 'tbn') {
-                const region = document.getElementById('tbnRegionSelect').value;
-                if (!region) {
-                    alert('tbn 지역을 선택해주세요.');
-                    return;
-                }
-                finalProgram = `${programName}(${region})`;
-            }
-
-            const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
-            
-            if (!playlists[dateKey]) {
-                playlists[dateKey] = [];
-            }
-
-            const song = {
-                id: Date.now().toString(),
-                station,
-                program: finalProgram,
-                title,
-                artist,
-                isNew
-            };
-
-            playlists[dateKey].push(song);
-            saveToLocalStorage();
-
-            // 입력 필드 초기화
-            document.getElementById('programSelect').value = '';
-            document.getElementById('tbnRegionSelect').value = '';
-            document.getElementById('tbnRegionGroup').style.display = 'none';
-            document.getElementById('titleInput').value = '';
-            document.getElementById('artistInput').value = '';
-            document.getElementById('isNewInput').checked = false;
-
+        function changeMonth(delta) {
+            currentDate.setMonth(currentDate.getMonth() + delta);
             renderCalendar();
-            renderPlaylist();
         }
 
-        // 곡 수정 (관리자만)
-        function editSong(songId) {
-            if (!isAdmin) {
-                alert('관리자만 곡을 수정할 수 있습니다.');
-                return;
-            }
-
-            const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
-            const song = playlists[dateKey].find(s => s.id === songId);
-
-            if (!song) return;
-
-            // tbn인 경우 프로그램명에서 지역 정보 분리
-            let programName = song.program;
-            let region = '';
-            
-            if (song.station === 'tbn' && song.program.includes('(') && song.program.includes(')')) {
-                const match = song.program.match(/^(.+?)\((.+?)\)$/);
-                if (match) {
-                    programName = match[1];
-                    region = match[2];
-                }
-            }
-
-            // 수정 폼에 기존 데이터 채우기
-            const programValue = `${song.station}|${programName}`;
-            document.getElementById('editProgramSelect').value = programValue;
-            
-            // tbn인 경우 지역 선택 필드 표시 및 값 설정
-            if (song.station === 'tbn') {
-                document.getElementById('editTbnRegionGroup').style.display = 'block';
-                document.getElementById('editTbnRegionSelect').value = region;
-            } else {
-                document.getElementById('editTbnRegionGroup').style.display = 'none';
-            }
-            
-            document.getElementById('editTitleInput').value = song.title;
-            document.getElementById('editArtistInput').value = song.artist || '';
-            document.getElementById('editIsNewInput').checked = song.isNew || false;
-
-            editingSongId = songId;
-
-            // 모달 표시
-            const modal = document.getElementById('modalOverlay');
-            const loginForm = document.getElementById('loginForm');
-            const logoutForm = document.getElementById('logoutForm');
-            const editForm = document.getElementById('editForm');
-
-            loginForm.style.display = 'none';
-            logoutForm.style.display = 'none';
-            editForm.style.display = 'block';
-
-            modal.classList.add('active');
-        }
-
-        // 수정 내용 저장
-        function saveEdit() {
-            if (!editingSongId) return;
-
-            const programValue = document.getElementById('editProgramSelect').value;
-            const title = document.getElementById('editTitleInput').value.trim();
-            const artist = document.getElementById('editArtistInput').value.trim();
-            const isNew = document.getElementById('editIsNewInput').checked;
-
-            if (!programValue || !title) {
-                alert('프로그램과 곡명을 입력해주세요.');
-                return;
-            }
-
-            // "방송사|프로그램명" 형태를 분리
-            const [station, programName] = programValue.split('|');
-
-            // tbn인 경우 지역 정보 추가
-            let finalProgram = programName;
-            if (station === 'tbn') {
-                const region = document.getElementById('editTbnRegionSelect').value;
-                if (!region) {
-                    alert('tbn 지역을 선택해주세요.');
-                    return;
-                }
-                finalProgram = `${programName}(${region})`;
-            }
-
-            const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
-            const songIndex = playlists[dateKey].findIndex(s => s.id === editingSongId);
-
-            if (songIndex !== -1) {
-                playlists[dateKey][songIndex] = {
-                    ...playlists[dateKey][songIndex],
-                    station,
-                    program: finalProgram,
-                    title,
-                    artist,
-                    isNew
-                };
-
-                saveToLocalStorage();
-                renderCalendar();
-                renderPlaylist();
-                closeModal();
-                editingSongId = null;
-            }
-        }
-
-        // 곡 삭제 (관리자만)
-        function deleteSong(songId) {
-            if (!isAdmin) {
-                alert('관리자만 곡을 삭제할 수 있습니다.');
-                return;
-            }
-
-            if (!confirm('이 곡을 삭제하시겠습니까?')) {
-                return;
-            }
-
-            const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
-            playlists[dateKey] = playlists[dateKey].filter(song => song.id !== songId);
-            saveToLocalStorage();
-
+        function changeYear(delta) {
+            currentDate.setFullYear(currentDate.getFullYear() + delta);
             renderCalendar();
-            renderPlaylist();
         }
-
-        // 엔터키로 로그인/저장
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && document.getElementById('modalOverlay').classList.contains('active')) {
-                const loginForm = document.getElementById('loginForm');
-                const editForm = document.getElementById('editForm');
-                
-                if (loginForm.style.display !== 'none') {
-                    login();
-                } else if (editForm.style.display !== 'none') {
-                    saveEdit();
-                }
-            }
-        });
 
         // 초기화
+        document.getElementById('programInput').disabled = true;
         renderCalendar();
     </script>
 </body>
 </html>
-
