@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>라디오 선곡 관리 시스템</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%);
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* 상단 배너 */
+        .banner-section {
+            background: white;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(6, 214, 160, 0.15);
+            position: relative;
+            border: 2px solid #ccfbf1;
+        }
+
+        .banner-image {
+            width: 100%;
+            max-width: 700px;
+            height: auto;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 12px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .banner-section {
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+
+            .banner-image {
+                max-height: 100px;
+                border-radius: 8px;
+            }
+        }
+
+        /* 관리자 아이콘 */
+        .admin-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        /* 문자 사연 버튼 */
+        .message-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #5eead4 0%, #2dd4bf 100%);
+            color: #064e3b;
+            padding: 16px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 6px 20px rgba(94, 234, 212, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 100;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: pulse 2s ease-in-out infinite;
+            text-decoration: none;
+        }
+
+        .message-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(94, 234, 212, 0.6);
+        }
+
+        .message-btn:active {
+            transform: translateY(-1px);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @media (max-width: 768px) {
+            .admin-icon {
+                width: 48px;
+                height: 48px;
+                top: 15px;
+                right: 15px;
+            }
+
+            .admin-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .message-btn {
+                bottom: 20px;
+                right: 20px;
+                padding: 14px 24px;
+                font-size: 15px;
+            }
+        }
+
+        .admin-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(147, 51, 234, 0.6);
+        }
+
+        .admin-icon.logged-in {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        }
+
+        .admin-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+
+        /* 로그인 모달 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 420px;
+            width: 100%;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .modal-overlay {
+                padding: 15px;
+            }
+
+            .modal-content {
+                padding: 25px 20px;
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h2 {
+            color: #0f766e;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.4rem;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content h2 {
+                font-size: 1.2rem;
+                margin-bottom: 20px;
+            }
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ccfbf1;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content input {
+                padding: 14px;
+            }
+        }
+
+        .modal-content input:focus {
+            outline: none;
+            border-color: #14b8a6;
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 48px;
+        }
+
+        @media (max-width: 768px) {
+            .modal-btn {
+                font-size: 15px;
+            }
+        }
+
+        .modal-btn.login {
+            background: linear-gradient(135deg, #14b8a6 0%, #10b981 100%);
+            color: white;
+        }
+
+        .modal-btn.login:hover {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .modal-btn.login:active {
+            transform: scale(0.98);
+        }
+
+        .modal-btn.cancel {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .modal-btn.cancel:hover {
+            background: #d1d5db;
+        }
+
+        .modal-btn.cancel:active {
+            transform: scale(0.98);
+        }
+
+        .modal-btn.logout {
+            background: #dc2626;
+            color: white;
+        }
+
+        .modal-btn.logout:hover {
+            background: #b91c1c;
+        }
+
+        .modal-btn.logout:active {
+            transform: scale(0.98);
+        }
+
+        .error-message {
+            color: #dc2626;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .error-message {
+                font-size: 13px;
+            }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 1200px) {
+            .grid {
+                grid-template-columns: 280px 1fr;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        .calendar-section, .playlist-section {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(6, 214, 160, 0.1);
+            border: 2px solid #ccfbf1;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-section, .playlist-section {
+                padding: 15px;
+                border-radius: 16px;
+            }
+        }
+
+        /* 달력 스타일 */
+        .calendar-title {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #14b8a6;
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .year-nav, .month-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .nav-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: #f0fdfa;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #14b8a6;
+        }
+
+        .nav-btn:hover {
+            background: #ccfbf1;
+        }
+
+        .year-nav .current-year {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #0f766e;
+        }
+
+        .month-nav .current-month {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #14b8a6;
+        }
+
+        @media (max-width: 768px) {
+            .year-nav .current-year {
+                font-size: 1rem;
+            }
+
+            .month-nav .current-month {
+                font-size: 1.2rem;
+            }
+
+            .nav-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 3px;
+            margin-bottom: 6px;
+        }
+
+        .weekday {
+            text-align: center;
+            font-weight: bold;
+            padding: 6px 2px;
+            font-size: 11px;
+        }
+
+        @media (max-width: 768px) {
+            .weekday {
+                font-size: 10px;
+                padding: 5px 2px;
+            }
+        }
+
+        .weekday.sunday { color: #f87171; }
+        .weekday.saturday { color: #60a5fa; }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 3px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            border: none;
+            background: #f0fdfa;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 13px;
+            transition: all 0.3s;
+            position: relative;
+            min-height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-day {
+                font-size: 12px;
+                min-height: 36px;
+                border-radius: 6px;
+            }
+        }
+
+        .calendar-day:hover {
+            background: #ccfbf1;
+            transform: scale(1.05);
+        }
+
+        .calendar-day:active {
+            transform: scale(0.95);
+        }
+
+        .calendar-day.selected {
+            background: linear-gradient(135deg, #14b8a6 0%, #10b981 100%);
+            color: white;
+            transform: scale(1.08);
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
+        }
+
+        .calendar-day.has-playlist {
+            border: 2px solid #5eead4;
+        }
+
+        .calendar-day.has-playlist::after {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: #14b8a6;
+            border-radius: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-day.has-playlist::after {
+                width: 3px;
+                height: 3px;
+                bottom: 2px;
+            }
+        }
+
+        .calendar-day.selected.has-playlist::after {
+            background: white;
+        }
+
+        .calendar-day:disabled {
+            visibility: hidden;
+        }
+
+        /* 플레이리스트 섹션 */
+        .playlist-header {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #0f766e;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .playlist-header::before {
+            content: '⭐';
+            font-size: 1.8rem;
+            animation: twinkle 1.5s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        @media (max-width: 768px) {
+            .playlist-header {
+                font-size: 1.3rem;
+                margin-bottom: 20px;
+            }
+
+            .playlist-header::before {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* 곡 추가 폼 (관리자만) */
+        .add-song-form {
+            background: linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%);
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            display: none;
+            border: 2px solid #ccfbf1;
+        }
+
+        @media (max-width: 768px) {
+            .add-song-form {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+        }
+
+        .add-song-form.admin-mode {
+            display: block;
+        }
+
+        .add-song-form h3 {
+            color: #0f766e;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .add-song-form h3::before {
+            content: '✨';
+        }
+
+        @media (max-width: 768px) {
+            .add-song-form h3 {
+                font-size: 1rem;
+                margin-bottom: 12px;
+            }
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+
+        .form-input {
+            padding: 14px 15px;
+            border: 2px solid #ccfbf1;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .form-input {
+                padding: 12px 14px;
+                font-size: 16px;
+            }
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #14b8a6;
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+        }
+
+        .add-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #14b8a6 0%, #10b981 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+            min-height: 48px;
+        }
+
+        .add-btn:hover {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+        }
+
+        .add-btn:active {
+            transform: translateY(0);
+        }
+
+        .playlist-list h3 {
+            color: #0f766e;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .playlist-list h3::before {
+            content: '🎵';
+        }
+
+        @media (max-width: 768px) {
+            .playlist-list h3 {
+                font-size: 1rem;
+            }
+        }
+
+        .playlist-count {
+            color: #14b8a6;
+            font-weight: bold;
+        }
+
+        .song-item {
+            background: linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%);
+            padding: 18px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            transition: all 0.3s;
+            gap: 12px;
+            border: 2px solid #ccfbf1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .song-item::before {
+            content: '⭐';
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            font-size: 50px;
+            opacity: 0.08;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .song-item {
+                padding: 15px;
+                border-radius: 12px;
+                margin-bottom: 10px;
+            }
+        }
+
+        .song-item:hover {
+            box-shadow: 0 6px 20px rgba(20, 184, 166, 0.15);
+            transform: translateY(-3px);
+            border-color: #5eead4;
+        }
+
+        .song-info {
+            flex: 1;
+            min-width: 0;
+            z-index: 1;
+        }
+
+        .song-tags {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .station-tag {
+            background: linear-gradient(135deg, #5eead4 0%, #2dd4bf 100%);
+            color: #064e3b;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .station-tag {
+                font-size: 11px;
+                padding: 5px 12px;
+            }
+        }
+
+        .program-name {
+            color: #0f766e;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .program-name {
+                font-size: 13px;
+            }
+        }
+
+        .song-title {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #064e3b;
+            margin-bottom: 5px;
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
+        @media (max-width: 768px) {
+            .song-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        .song-artist {
+            color: #14b8a6;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .song-artist {
+                font-size: 13px;
+            }
+        }
+
+        .delete-btn {
+            background: #fef2f2;
+            color: #dc2626;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: none;
+            min-width: 44px;
+            min-height: 44px;
+            flex-shrink: 0;
+            z-index: 1;
+        }
+
+        .delete-btn.admin-mode {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .delete-btn:hover {
+            background: #dc2626;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .delete-btn:active {
+            transform: scale(0.95);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #99f6e4;
+        }
+
+        @media (max-width: 768px) {
+            .empty-state {
+                padding: 40px 15px;
+            }
+
+            .empty-state p {
+                font-size: 14px;
+                color: #5eead4;
+            }
+        }
+
+        .no-date-selected {
+            text-align: center;
+            padding: 80px 20px;
+            color: #99f6e4;
+        }
+
+        @media (max-width: 768px) {
+            .no-date-selected {
+                padding: 60px 15px;
+            }
+        }
+
+        .no-date-selected .star-icon {
+            font-size: 80px;
+            margin-bottom: 15px;
+            animation: twinkle 1.5s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .no-date-selected .star-icon {
+                font-size: 60px;
+            }
+
+            .no-date-selected p {
+                font-size: 14px;
+                color: #5eead4;
+            }
+        }
+
+        .admin-badge {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: #dc2626;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: none;
+            z-index: 99;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .admin-badge {
+                top: 70px;
+                right: 15px;
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+        }
+
+        .admin-badge.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 관리자 아이콘 -->
+    <div id="adminIcon" class="admin-icon" onclick="openAdminModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+    </div>
+
+    <!-- 문자 사연 보내기 버튼 -->
+    <a href="https://minhomint.github.io/-Message-Zone/" target="_blank" class="message-btn">
+        💌 문자 사연 보내기
+    </a>
+
+    <!-- 관리자 모드 표시 -->
+    <div id="adminBadge" class="admin-badge">관리자 모드</div>
+
+    <!-- 로그인/로그아웃 모달 -->
+    <div id="modalOverlay" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <!-- 로그인 화면 -->
+            <div id="loginForm">
+                <h2>🔐 관리자 로그인</h2>
+                <input 
+                    type="password" 
+                    id="passwordInput" 
+                    placeholder="비밀번호 입력"
+                    autocomplete="off"
+                >
+                <div class="modal-buttons">
+                    <button class="modal-btn cancel" onclick="closeModal()">취소</button>
+                    <button class="modal-btn login" onclick="login()">로그인</button>
+                </div>
+                <div id="errorMessage" class="error-message"></div>
+            </div>
+
+            <!-- 로그아웃 화면 -->
+            <div id="logoutForm" style="display: none;">
+                <h2>로그아웃</h2>
+                <p style="text-align: center; margin-bottom: 25px; color: #6b7280; font-size: 15px; line-height: 1.5;">
+                    관리자 모드를 종료하시겠습니까?
+                </p>
+                <div class="modal-buttons">
+                    <button class="modal-btn cancel" onclick="closeModal()">취소</button>
+                    <button class="modal-btn logout" onclick="logout()">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 배너 -->
+        <div class="banner-section">
+            <img src="/mnt/user-data/uploads/preview1.jpg" alt="라디오 선곡 배너" class="banner-image">
+        </div>
+
+        <div class="grid">
+            <!-- 달력 -->
+            <div class="calendar-section">
+                <div class="calendar-title">
+                    ⭐ 선곡 달력
+                </div>
+
+                <div class="year-nav">
+                    <button class="nav-btn" onclick="changeYear(-1)">◀</button>
+                    <span class="current-year" id="currentYear"></span>
+                    <button class="nav-btn" onclick="changeYear(1)">▶</button>
+                </div>
+
+                <div class="month-nav">
+                    <button class="nav-btn" onclick="changeMonth(-1)">◀</button>
+                    <span class="current-month" id="currentMonth"></span>
+                    <button class="nav-btn" onclick="changeMonth(1)">▶</button>
+                </div>
+
+                <div class="weekdays">
+                    <div class="weekday sunday">일</div>
+                    <div class="weekday">월</div>
+                    <div class="weekday">화</div>
+                    <div class="weekday">수</div>
+                    <div class="weekday">목</div>
+                    <div class="weekday">금</div>
+                    <div class="weekday saturday">토</div>
+                </div>
+
+                <div class="calendar-grid" id="calendarGrid"></div>
+            </div>
+
+            <!-- 플레이리스트 -->
+            <div class="playlist-section">
+                <div id="noDateSelected" class="no-date-selected">
+                    <div class="star-icon">⭐</div>
+                    <p>달력에서 날짜를 선택해주세요</p>
+                </div>
+
+                <div id="playlistContent" style="display: none;">
+                    <h2 class="playlist-header" id="selectedDateText"></h2>
+
+                    <!-- 곡 추가 폼 (관리자만 보임) -->
+                    <div class="add-song-form" id="addSongForm">
+                        <h3>새 곡 추가</h3>
+                        <div class="form-grid">
+                            <input type="text" class="form-input" id="stationInput" placeholder="방송사 (예: MBC)">
+                            <input type="text" class="form-input" id="programInput" placeholder="프로그램명 (예: 별이 빛나는 밤에)">
+                            <input type="text" class="form-input" id="titleInput" placeholder="곡명">
+                            <input type="text" class="form-input" id="artistInput" placeholder="아티스트 (선택)">
+                        </div>
+                        <button class="add-btn" onclick="addSong()">
+                            <span>➕</span>
+                            곡 추가
+                        </button>
+                    </div>
+
+                    <div class="playlist-list">
+                        <h3>방송 선곡표 <span class="playlist-count" id="songCount">(0곡)</span></h3>
+                        <div id="songList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 관리자 비밀번호 (원하는 비밀번호로 변경하세요)
+        const ADMIN_PASSWORD = 'admin1234';
+
+        // 상태
+        let isAdmin = false;
+        let currentDate = new Date();
+        let selectedDate = null;
+        let playlists = loadFromLocalStorage();
+
+        // localStorage에서 데이터 로드
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('radioPlaylists');
+            if (saved) {
+                return JSON.parse(saved);
+            }
+            
+            // 샘플 데이터
+            return {
+                '2025-10-20': [
+                    {
+                        id: '1729400000001',
+                        station: 'TBN',
+                        program: '차차차(경남)',
+                        title: '7번국도',
+                        artist: ''
+                    }
+                ],
+                '2025-10-21': [
+                    {
+                        id: '1729486400001',
+                        station: 'TBN',
+                        program: '빵빵한 2시',
+                        title: '으라차차차',
+                        artist: ''
+                    }
+                ],
+                '2025-10-22': [
+                    {
+                        id: '1729572800001',
+                        station: 'TBN',
+                        program: '차차차(대전)',
+                        title: '정답은 없다',
+                        artist: ''
+                    },
+                    {
+                        id: '1729572800002',
+                        station: 'TBN',
+                        program: '차차차(전북)',
+                        title: '7번국도',
+                        artist: ''
+                    }
+                ]
+            };
+        }
+
+        // localStorage에 데이터 저장
+        function saveToLocalStorage() {
+            localStorage.setItem('radioPlaylists', JSON.stringify(playlists));
+        }
+
+        // 관리자 모달 열기
+        function openAdminModal() {
+            document.getElementById('modalOverlay').classList.add('active');
+            if (isAdmin) {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('logoutForm').style.display = 'block';
+            } else {
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('logoutForm').style.display = 'none';
+                setTimeout(() => {
+                    document.getElementById('passwordInput').focus();
+                }, 100);
+            }
+        }
+
+        // 모달 닫기
+        function closeModal(event) {
+            if (!event || event.target.id === 'modalOverlay') {
+                document.getElementById('modalOverlay').classList.remove('active');
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('errorMessage').textContent = '';
+            }
+        }
+
+        // 로그인
+        function login() {
+            const password = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (password === ADMIN_PASSWORD) {
+                isAdmin = true;
+                document.getElementById('adminIcon').classList.add('logged-in');
+                document.getElementById('adminBadge').classList.add('active');
+                updateAdminUI();
+                closeModal();
+                alert('관리자 모드로 전환되었습니다.');
+            } else {
+                errorMessage.textContent = '비밀번호가 올바르지 않습니다.';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        // 로그아웃
+        function logout() {
+            isAdmin = false;
+            document.getElementById('adminIcon').classList.remove('logged-in');
+            document.getElementById('adminBadge').classList.remove('active');
+            updateAdminUI();
+            closeModal();
+            alert('관리자 모드가 종료되었습니다.');
+        }
+
+        // 관리자 UI 업데이트
+        function updateAdminUI() {
+            const addForm = document.getElementById('addSongForm');
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+
+            if (isAdmin) {
+                addForm.classList.add('admin-mode');
+                deleteButtons.forEach(btn => btn.classList.add('admin-mode'));
+            } else {
+                addForm.classList.remove('admin-mode');
+                deleteButtons.forEach(btn => btn.classList.remove('admin-mode'));
+            }
+        }
+
+        // 년도 변경
+        function changeYear(direction) {
+            currentDate.setFullYear(currentDate.getFullYear() + direction);
+            renderCalendar();
+        }
+
+        // 월 변경
+        function changeMonth(direction) {
+            currentDate.setMonth(currentDate.getMonth() + direction);
+            renderCalendar();
+        }
+
+        // 달력 렌더링
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            document.getElementById('currentYear').textContent = `${year}년`;
+            document.getElementById('currentMonth').textContent = `${month + 1}월`;
+
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDayOfWeek = firstDay.getDay();
+
+            const calendarGrid = document.getElementById('calendarGrid');
+            calendarGrid.innerHTML = '';
+
+            // 빈 칸
+            for (let i = 0; i < startingDayOfWeek; i++) {
+                const emptyDay = document.createElement('button');
+                emptyDay.className = 'calendar-day';
+                emptyDay.disabled = true;
+                calendarGrid.appendChild(emptyDay);
+            }
+
+            // 날짜
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayButton = document.createElement('button');
+                dayButton.className = 'calendar-day';
+                dayButton.textContent = day;
+                
+                const dateKey = getDateKey(year, month, day);
+                if (playlists[dateKey] && playlists[dateKey].length > 0) {
+                    dayButton.classList.add('has-playlist');
+                }
+
+                if (selectedDate && 
+                    selectedDate.getDate() === day && 
+                    selectedDate.getMonth() === month && 
+                    selectedDate.getFullYear() === year) {
+                    dayButton.classList.add('selected');
+                }
+
+                dayButton.onclick = () => selectDate(year, month, day);
+                calendarGrid.appendChild(dayButton);
+            }
+        }
+
+        // 날짜 선택
+        function selectDate(year, month, day) {
+            selectedDate = new Date(year, month, day);
+            renderCalendar();
+            renderPlaylist();
+        }
+
+        // 날짜 키 생성
+        function getDateKey(year, month, day) {
+            return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        }
+
+        // 플레이리스트 렌더링
+        function renderPlaylist() {
+            if (!selectedDate) {
+                document.getElementById('noDateSelected').style.display = 'block';
+                document.getElementById('playlistContent').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('noDateSelected').style.display = 'none';
+            document.getElementById('playlistContent').style.display = 'block';
+
+            const year = selectedDate.getFullYear();
+            const month = selectedDate.getMonth() + 1;
+            const day = selectedDate.getDate();
+            
+            document.getElementById('selectedDateText').textContent = 
+                `${year}년 ${month}월 ${day}일`;
+
+            const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+            const songs = playlists[dateKey] || [];
+
+            document.getElementById('songCount').textContent = `(${songs.length}곡)`;
+
+            const songList = document.getElementById('songList');
+            if (songs.length === 0) {
+                songList.innerHTML = `
+                    <div class="empty-state">
+                        <div style="font-size: 60px; margin-bottom: 15px; animation: twinkle 1.5s ease-in-out infinite;">⭐</div>
+                        <p>선곡된 곡이 없습니다</p>
+                    </div>
+                `;
+            } else {
+                songList.innerHTML = songs.map(song => `
+                    <div class="song-item">
+                        <div class="song-info">
+                            <div class="song-tags">
+                                <span class="station-tag">${song.station}</span>
+                                <span class="program-name">${song.program}</span>
+                            </div>
+                            <div class="song-title">${song.title}</div>
+                            ${song.artist ? `<div class="song-artist">${song.artist}</div>` : ''}
+                        </div>
+                        <button class="delete-btn ${isAdmin ? 'admin-mode' : ''}" onclick="deleteSong('${song.id}')">
+                            🗑️
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            updateAdminUI();
+        }
+
+        // 곡 추가 (관리자만)
+        function addSong() {
+            if (!isAdmin) {
+                alert('관리자만 곡을 추가할 수 있습니다.');
+                return;
+            }
+
+            if (!selectedDate) {
+                alert('날짜를 선택해주세요.');
+                return;
+            }
+
+            const station = document.getElementById('stationInput').value.trim();
+            const program = document.getElementById('programInput').value.trim();
+            const title = document.getElementById('titleInput').value.trim();
+            const artist = document.getElementById('artistInput').value.trim();
+
+            if (!station || !program || !title) {
+                alert('방송사, 프로그램명, 곡명을 입력해주세요.');
+                return;
+            }
+
+            const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+            
+            if (!playlists[dateKey]) {
+                playlists[dateKey] = [];
+            }
+
+            const song = {
+                id: Date.now().toString(),
+                station,
+                program,
+                title,
+                artist
+            };
+
+            playlists[dateKey].push(song);
+            saveToLocalStorage();
+
+            // 입력 필드 초기화
+            document.getElementById('stationInput').value = '';
+            document.getElementById('programInput').value = '';
+            document.getElementById('titleInput').value = '';
+            document.getElementById('artistInput').value = '';
+
+            renderCalendar();
+            renderPlaylist();
+        }
+
+        // 곡 삭제 (관리자만)
+        function deleteSong(songId) {
+            if (!isAdmin) {
+                alert('관리자만 곡을 삭제할 수 있습니다.');
+                return;
+            }
+
+            if (!confirm('이 곡을 삭제하시겠습니까?')) {
+                return;
+            }
+
+            const dateKey = getDateKey(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+            playlists[dateKey] = playlists[dateKey].filter(song => song.id !== songId);
+            saveToLocalStorage();
+
+            renderCalendar();
+            renderPlaylist();
+        }
+
+        // 엔터키로 로그인
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && document.getElementById('modalOverlay').classList.contains('active')) {
+                if (document.getElementById('loginForm').style.display !== 'none') {
+                    login();
+                }
+            }
+        });
+
+        // 초기화
+        renderCalendar();
+    </script>
+</body>
+</html>
