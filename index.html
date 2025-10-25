@@ -1260,6 +1260,7 @@
                             <label>tbn 지역</label>
                             <select id="regionSelect">
                                 <option value="">지역 선택</option>
+                                <option value="전국">전국</option>
                                 <option value="부산">부산</option>
                                 <option value="광주">광주</option>
                                 <option value="대구">대구</option>
@@ -1334,9 +1335,9 @@
 
         const programs = {
             'KBS': ['주현미의 러브레터', '은가은의 빛나는 트로트'],
-            'MBC': ['손태진의 트로트 라디오', '박준형, 박영진의 2시 만세'],
+            'MBC': ['손태진의 트로트 라디오', '박준형,박영진의 2시 만세'],
             'SBS': ['이숙영의 러브FM'],
-            'tbn': ['tbn 차차차', '빵빵한 2시', '펀펀트롯', '홍지영의 주말엔12시', '주말의 친한친구', '주말, 열두시에 만나요', '오후의 발견', '두시의 트롯팡팡', '트로트 하이웨이', '달리는 라디오']
+            'tbn': ['tbn김효진,양상국의 12시에 만나요', 'tbn김승현의 가요본색', 'tbn 차차차', '달리는 라디오''빵빵한 2시', '펀펀트롯', '홍지영의 주말엔12시', '주말의 친한친구', '주말, 열두시에 만나요', '오후의 발견', '두시의 트롯팡팡', '트로트 하이웨이']
         };
 
         let database, isAdmin = false, currentDate = new Date(), selectedDate = null;
@@ -1632,4 +1633,3 @@
     </script>
 </body>
 </html>
-
